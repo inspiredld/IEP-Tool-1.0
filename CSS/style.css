@@ -405,6 +405,70 @@ section h2, section h1 {
   outline: none;
 }
 
+/* ========== Copy Modal (iframe-safe fallback) ========== */
+.copy-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.copy-modal {
+  width: min(900px, 94vw);
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+}
+.copy-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid #eee;
+}
+.copy-modal-header h3 { margin: 0; font-size: 1.1rem; }
+.copy-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.copy-modal-tabs { display: flex; gap: 0.5rem; padding: 0.7rem 1.1rem 0 1.1rem; }
+.copy-tab {
+  background: #f3f3f3;
+  border: 1px solid #ddd;
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.copy-tab.active {
+  background: #fff;
+  border-color: #ddd;
+}
+.copy-modal-body {
+  padding: 0 1.1rem 1rem 1.1rem;
+}
+.copy-pane {
+  width: 100%;
+  min-height: 300px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.8rem;
+  overflow: auto;
+}
+.copy-modal-footer {
+  padding: 0.7rem 1.1rem 1rem 1.1rem;
+  color: #555;
+  font-size: 0.9rem;
+}
+
 /* Additional Information RTE styles */
 #additionalInfoRTE {
   border: 1px solid var(--color-border) !important;

@@ -396,6 +396,52 @@
         try { document.execCommand('copy'); } catch (e) {}
         document.body.removeChild(ta);
       }
+      function openCopyModal({ html, plain }) {
+        const backdrop = document.createElement('div');
+        backdrop.className = 'copy-modal-backdrop';
+        backdrop.innerHTML = `
+          <div class="copy-modal" role="dialog" aria-modal="true" aria-label="Copy Report">
+            <div class="copy-modal-header">
+              <h3>Copy Report</h3>
+              <button class="copy-modal-close" aria-label="Close">×</button>
+            </div>
+            <div class="copy-modal-tabs">
+              <button class="copy-tab active" data-target="html">Formatted</button>
+              <button class="copy-tab" data-target="text">Plain Text</button>
+            </div>
+            <div class="copy-modal-body">
+              <div class="copy-pane" id="copy-pane-html"></div>
+              <textarea class="copy-pane" id="copy-pane-text" style="display:none"></textarea>
+            </div>
+            <div class="copy-modal-footer">
+              If copy is blocked in this embed, select the content and press Ctrl/Cmd+C.
+            </div>
+          </div>
+        `;
+        document.body.appendChild(backdrop);
+        const paneHtml = backdrop.querySelector('#copy-pane-html');
+        const paneText = backdrop.querySelector('#copy-pane-text');
+        paneHtml.innerHTML = html || '';
+        paneText.value = plain || '';
+        // Tab switching
+        const tabs = backdrop.querySelectorAll('.copy-tab');
+        tabs.forEach(tab => tab.addEventListener('click', () => {
+          tabs.forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          const target = tab.getAttribute('data-target');
+          if (target === 'html') { paneHtml.style.display = ''; paneText.style.display = 'none'; }
+          else { paneHtml.style.display = 'none'; paneText.style.display = ''; paneText.focus(); paneText.select(); }
+        }));
+        // Close
+        backdrop.querySelector('.copy-modal-close').onclick = () => document.body.removeChild(backdrop);
+        backdrop.onclick = (e) => { if (e.target === backdrop) document.body.removeChild(backdrop); };
+        // Auto select HTML by creating a selection range
+        const range = document.createRange();
+        range.selectNodeContents(paneHtml);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
       function indicateCopied(btn) {
         if (!btn) return;
         const original = btn.innerText;
@@ -415,14 +461,13 @@
             .then(() => indicateCopied(btnEl))
             .catch(() => navigator.clipboard.writeText(plain)
               .then(() => indicateCopied(btnEl))
-              .catch(() => { legacyCopy(plain); indicateCopied(btnEl); }));
+              .catch(() => { openCopyModal({ html, plain }); }));
         } else if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(plain)
             .then(() => indicateCopied(btnEl))
-            .catch(() => { legacyCopy(plain); indicateCopied(btnEl); });
+            .catch(() => { openCopyModal({ html, plain }); });
         } else {
-          legacyCopy(plain);
-          indicateCopied(btnEl);
+          openCopyModal({ html, plain });
         }
       }
       document.getElementById('copy-plaa')?.addEventListener('click', (e) => copyFromEditor(window.plaaEditorInstance, 'plaa-editor', e.currentTarget));
