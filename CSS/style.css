@@ -1,0 +1,1628 @@
+/* ========== CSS Custom Properties ========== */
+:root {
+  /* Colors */
+  --color-accent: #c97c5d;
+  --color-accent-hover: #b86849;
+  --color-toggle-bg: #f2c3a7;
+  --color-content-bg: #fff8f1;
+  --color-border: #e0d5cc;
+  --color-text: #3d2f2f;
+  
+  /* Typography */
+  --font-primary: Arial, system-ui, sans-serif;
+  --line-height-body: 1.5;
+  
+  /* Spacing */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 2rem;
+  
+  /* Animation */
+  --transition-duration: 0.3s;
+  --transition-easing: ease;
+
+  /* Button Styles */
+  --button-padding: 0.4rem 0.8rem;
+  --button-radius: 4px;
+
+  /* Blue Accent Variables */
+  --accent-blue: #1976d2;
+  --accent-blue-light: #e3f0fd;
+  --section-bg-blue: #f0f7ff;
+
+  /* Universal Button Hover Effect */
+  --button-hover-brightness: 1.05;
+  --button-hover-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  --button-hover-outline: rgba(255, 255, 255, 0.3);
+}
+
+/* ========== Universal Button Styles ========== */
+button {
+  position: relative;
+  transition: all var(--transition-duration) var(--transition-easing);
+}
+
+button:hover {
+  filter: brightness(var(--button-hover-brightness));
+  box-shadow: var(--button-hover-shadow);
+}
+
+button:hover::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  border: 2px solid var(--button-hover-outline);
+  pointer-events: none;
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* ========== Reset & Base Styles ========== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', 'Lato', Arial, system-ui, sans-serif;
+  padding: var(--spacing-md);
+  margin: 0;
+  line-height: var(--line-height-body);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========== Layout ========== */
+main#iep-container {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+  padding: var(--spacing-md);
+  overflow-y: auto;
+  background: var(--color-background);
+}
+
+/* ========== Section Styling (Accordion Look) ========== */
+section {
+  border: none;
+  background: none;
+  margin-bottom: var(--spacing-md);
+  padding: 0;
+}
+
+/* ========== Left Alignment ========== */
+section, section * {
+  text-align: left;
+}
+
+/* ========== Typography ========== */
+h1, h2, h3, h4, h5 {
+  margin-bottom: var(--spacing-sm);
+  line-height: 1.2;
+}
+
+h1 {
+  color: #b84c00;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 12pt;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 10pt;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 10pt;
+  font-weight: bold;
+  font-style: italic;
+}
+
+h5 {
+  font-size: 10pt;
+  font-style: italic;
+}
+
+/* ========== Toggle Components ========== */
+.toggle-button {
+  width: 100%;
+  text-align: left;
+  font-weight: bold;
+  background: var(--color-toggle-bg);
+  border: none;
+  border-bottom: 2px solid var(--color-border);
+  border-radius: 8px 8px 0 0;
+  padding: 1rem 1.2rem;
+  margin: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  outline: none;
+  transition: background 0.2s, box-shadow 0.2s;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--color-text);
+}
+
+.toggle-button:hover, .toggle-button:focus-visible {
+  background: var(--color-content-bg);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-duration) var(--transition-easing);
+  font-size: 1.2em;
+  width: 1.5em;
+  height: 1.5em;
+  color: var(--color-text);
+}
+
+[aria-expanded="true"] .toggle-icon {
+  transform: rotate(90deg);
+}
+
+.toggle-content {
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-border);
+  padding: 1.2rem 2rem 1.5rem 2rem;
+  margin-bottom: var(--spacing-sm);
+  background: var(--color-content-bg);
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+.toggle-content * {
+  font-size: 0.95rem;
+}
+
+/* Evaluation include/exclude controls */
+.evaluation-include-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.evaluation-include-controls .checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+.evaluation-include-controls .checkbox-label input[type="checkbox"] {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+.toggle-content input,
+.toggle-content select,
+.toggle-content textarea {
+  font-size: 0.95rem;
+  height: auto;
+  padding: 0.4rem 0.5rem;
+  min-height: 2.1em;
+}
+
+section h2, section h1 {
+  font-size: 1.1rem;
+  color: var(--accent-blue);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Animation states */
+.is-animating {
+  pointer-events: none;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* ========== Utility Classes ========== */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.mb-md {
+  margin-bottom: var(--spacing-md) !important;
+}
+.border-strong {
+  border: 2px solid #000 !important;
+}
+.bg-white {
+  background: #fff !important;
+}
+
+/* ========== Output RTE Box ========== */
+.rte-box {
+  border: 2px solid #000;
+  background: #fff;
+  min-height: 150px;
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  border-radius: 4px;
+  box-shadow: none;
+  text-align: left;
+}
+
+.rte-box-outer {
+  border: 2px solid #000;
+  border-radius: 4px;
+  background: #fff;
+  min-height: 150px;
+  margin-top: 2rem;
+    padding: 0;
+  overflow: hidden;
+}
+
+/* Output heading styles */
+#plaa-editor h1 {
+  font-family: Arial !important;
+  font-size: 14pt !important;
+  font-weight: bold !important;
+  text-decoration: underline !important;
+  margin-bottom: 1rem !important;
+  color: #000000 !important;
+}
+
+#plaa-editor h2,
+#plaa-editor h3 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+#plaa-editor h2 {
+  font-family: Arial !important;
+  font-size: 12pt !important;
+  font-weight: bold !important;
+  text-decoration: none !important;
+  margin-bottom: 1rem !important;
+  color: #000000 !important;
+}
+
+#plaa-editor h3 {
+  font-family: Arial !important;
+  font-size: 10pt !important;
+  font-weight: bold !important;
+  text-decoration: none !important;
+  margin-bottom: 1rem !important;
+  color: #000000 !important;
+}
+
+/* Style for bold labels */
+#plaa-editor .goal-label {
+  font-family: Arial !important;
+  font-size: 10pt !important;
+  font-weight: bold !important;
+  color: #000000 !important;
+  display: inline !important;
+    margin: 0 !important;
+  }
+
+/* Style for inline content after labels */
+#plaa-editor .goal-content {
+  font-family: Arial !important;
+  font-size: 10pt !important;
+  font-weight: normal !important;
+  display: inline !important;
+  margin: 0 !important;
+  color: #000000 !important;
+}
+
+/* Base paragraph style for output */
+#plaa-editor p {
+  font-family: Arial !important;
+  font-size: 10pt !important;
+  font-weight: normal !important;
+  margin-bottom: 0.5rem !important;
+  color: #000000 !important;
+  line-height: 1.2 !important;
+}
+
+/* Make labels bold within paragraphs */
+#plaa-editor p strong,
+#plaa-editor p b {
+  font-weight: bold !important;
+  color: #000000 !important;
+}
+
+/* Indentation for progress details */
+#plaa-editor div[style*="margin-left"] {
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* TinyMCE specific styles */
+.tox-tinymce {
+  border: none !important;
+  border-radius: 4px !important;
+}
+
+.tox-toolbar {
+  background: #f5f5f5 !important;
+  border-bottom: 2px solid #000 !important;
+}
+
+.tox-edit-area {
+  background: #fff !important;
+}
+
+.tox-edit-area__iframe {
+  background: #fff !important;
+}
+
+/* Additional Information RTE styles */
+#additionalInfoRTE {
+  border: 1px solid var(--color-border) !important;
+  border-radius: 4px;
+  background: #fff;
+  padding: 0;
+  margin-bottom: var(--spacing-md);
+}
+
+.grid-field.rte-full-width {
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  display: block !important;
+}
+
+/* ========== Generate Report Button ========== */
+.generate-report-btn {
+  background: linear-gradient(90deg, #ffb47b 0%, #b84c00 100%);
+  color: #fff;
+  border: none;
+  border-radius: 32px;
+  padding: 0.9em 2.2em;
+  font-size: 1.15em;
+  font-weight: bold;
+  margin: 2.5rem auto 2.5rem auto;
+  display: block;
+  box-shadow: 0 2px 8px rgba(184, 76, 0, 0.08);
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
+}
+.generate-report-btn:hover, .generate-report-btn:focus {
+  background: linear-gradient(90deg, #b84c00 0%, #ffb47b 100%);
+  box-shadow: 0 4px 16px rgba(184, 76, 0, 0.13);
+  transform: translateY(-2px) scale(1.03);
+  outline: none;
+}
+
+/* ========== Academic Progress Boxes ========== */
+.progress-box {
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  padding: 0;
+  margin-bottom: 2rem;
+}
+
+.progress-box:last-child {
+  margin-bottom: 0;
+}
+
+.progress-box-title {
+  text-align: center;
+  color: #000000;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #000000;
+}
+
+/* Alternative light blue background version if needed */
+.progress-box.light-bg {
+  background: #f8fbff;
+}
+
+/* ========== Goal Area Form Styles ========== */
+.goal-area-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  margin-left: 0.5rem;  /* Slight indent for content under subheading */
+}
+
+.goal-area-row label {
+  font-weight: 600;
+  min-width: 85px;  /* Fixed width for alignment */
+}
+
+.goal-area-select {
+  width: 250px;  /* Fixed width for dropdown */
+}
+
+.goal-area-specify {
+  display: none;  /* Hidden by default */
+  width: 200px;
+  margin-left: 1rem;
+}
+
+.goal-area-specify.visible {
+  display: block;
+}
+
+.goal-text-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  margin-left: 0.5rem;  /* Slight indent for content under subheading */
+}
+
+.goal-text-row label {
+  font-weight: 600;
+  min-width: 85px;  /* Match goal-area-row label width */
+}
+
+.goal-text-input {
+  flex-grow: 1;
+  min-height: 60px;
+  resize: none;  /* Remove manual resize since we're auto-resizing */
+  padding: 0.5rem;
+  overflow: hidden;  /* Hide scrollbar since we're auto-expanding */
+  line-height: 1.5;  /* Consistent line height for better calculation */
+  box-sizing: border-box;
+}
+
+/* ========== Goal Subheading Styles ========== */
+.goal-subheading {
+  color: #0a2b5c;  /* Navy blue */
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 0 0 1.2rem 0;
+  text-align: left;
+}
+
+/* ========== Progress Details Row ========== */
+.progress-details-row {
+  display: flex;
+  align-items: center;
+  gap: 2rem;  /* Larger gap between the two dropdown groups */
+  margin: 1.2rem 0 1.2rem calc(1.5rem + 85px + 0.5rem);  /* Increased left margin */
+}
+
+.progress-details-group {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.progress-details-group label {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.progress-details-select {
+  width: 150px;  /* Fixed width for consistent look */
+}
+
+/* ========== Summary Row ========== */
+.summary-row {
+  display: flex;
+  align-items: flex-start;  /* Align to top when text box expands */
+  gap: 0.8rem;
+  margin: 1.2rem 0 1.2rem calc(1.5rem + 85px + 0.5rem);  /* Match progress-details-row indentation */
+}
+
+.summary-row label {
+  font-weight: 600;
+  white-space: nowrap;
+  padding-top: 0.5rem;  /* Align with first line of text in textarea */
+}
+
+.summary-textarea,
+.cbms-description,
+.cbms-significance-textarea,
+.other-description,
+.other-significance-textarea {
+  width: calc(100% - 60px) !important;
+  resize: vertical !important;
+  min-width: 0 !important;
+  max-width: calc(100% - 60px) !important;
+  box-sizing: border-box !important;
+  margin-left: 40px !important;
+}
+
+/* ========== Progress Period Buttons ========== */
+.progress-period-buttons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-left: 18%;  /* Match the grades buttons alignment */
+}
+
+.progress-period-btn {
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  padding: var(--button-padding);
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  transition: background-color var(--transition-duration) var(--transition-easing);
+  font-size: 0.9rem;
+}
+
+.progress-period-btn.remove-progress-btn {
+  background-color: white;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+}
+
+/* Remove the auto margin and specific left margin that was pushing the remove button */
+.progress-period-btn.remove-progress-btn {
+  margin: 0;
+}
+
+.progress-period-btn:hover {
+  background-color: var(--color-accent-hover);
+}
+
+/* Reversed style for Agency remove button */
+.agency-remove-btn {
+  background-color: #f1f1f1 !important;
+  color: var(--color-accent) !important;
+  border: 1px solid var(--color-accent) !important;
+  font-weight: bold !important;
+}
+.agency-remove-btn:hover {
+  background-color: #e9e9e9 !important;
+}
+
+/* Container for a complete progress period report */
+.progress-period-report {
+  margin-bottom: 1rem;
+}
+
+/* Add extra space between progress periods (but not the first one) */
+.progress-period-report + .progress-period-report {
+  margin-top: 2rem;  /* Extra space between periods */
+}
+
+/* PLAA progress period sub-card styling */
+.progress-period-card {
+  background: #FFFAF7;
+  border: 1px solid #808080;
+  border-radius: 8px;
+  padding: 10px 14px 12px 12px;
+  margin-bottom: 16px;
+  margin-left: calc(85px + 1rem);
+  width: calc(100% - (85px + 1rem));
+}
+/* Reduce inherited left indents inside the sub-card */
+.progress-period-card .progress-details-row {
+  margin: 1.2rem 0;
+}
+.progress-period-card .summary-row {
+  margin: 1.2rem 0;
+}
+
+/* Align +Progress Period button with sub-card left edge inside PLAA goal card */
+.goal-card .progress-period-buttons {
+  padding-left: 0;
+  margin-left: calc(85px + 1rem);
+}
+
+/* Right-aligned remove button inside sub-card */
+.progress-period-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.progress-period-report:last-child {
+  margin-bottom: 0;
+}
+
+/* ========== Add Goal Button ========== */
+.add-goal-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;  /* Slightly larger than progress period buttons */
+  font-weight: 600;
+  color: #0d47a1;  /* Darker blue */
+  background-color: #e3f2fd;  /* Light blue background */
+  border: 1px solid #0d47a1;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 2rem;  /* Space from the last progress period */
+  margin-left: 0.5rem;  /* Match the goal area indentation */
+}
+
+.add-goal-btn:hover {
+  background-color: #bbdefb;  /* Darker blue on hover */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Container for each complete goal section */
+.goal-section {
+  margin-bottom: 2.5rem;  /* Space between goals */
+}
+
+.goal-section:last-child {
+  margin-bottom: 1.5rem;  /* Less space at the bottom */
+}
+
+/* ========== SDI Checkbox Styles ========== */
+.sdi-checkbox-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.sdi-checkbox-row:last-child {
+  margin-bottom: 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-weight: 600;
+  user-select: none;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 1.1em;
+  height: 1.1em;
+  cursor: pointer;
+}
+
+.checkbox-label span {
+  font-size: 0.95rem;
+}
+
+/* ========== SDI Input Area Styles ========== */
+.sdi-input-area {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* Shift SDI cards right and narrow inner inputs */
+.sdi-input-area.goal-card {
+  margin-left: calc(85px + 1rem);
+  width: calc(100% - (85px + 1rem));
+}
+.assessment-card.goal-card {
+  margin-left: calc(85px + 1rem);
+  width: calc(100% - (85px + 1rem));
+}
+.sdi-input-area.goal-card .sdi-textarea {
+  width: calc(100% - 220px) !important;
+  flex: 0 0 calc(100% - 220px) !important;
+  max-width: 100%;
+}
+.sdi-input-area.goal-card .sdi-input-row {
+  align-items: center;
+}
+
+.remove-sdi-inline-btn {
+  background-color: #f1f1f1 !important;
+  color: var(--color-accent) !important;
+  border: 1px solid var(--color-accent) !important;
+  border-radius: 4px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+  align-self: center;
+}
+.remove-sdi-inline-btn:hover {
+  background-color: #e9e9e9 !important;
+}
+
+.sdi-input-container {
+  margin-bottom: 1.5rem;
+}
+
+.sdi-input-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.sdi-label {
+  font-weight: 600;
+  min-width: 85px;
+  padding-top: 0.5rem;
+  white-space: nowrap;
+}
+
+.sdi-textarea {
+  flex-grow: 1;
+  min-height: 60px;
+  padding: 0.5rem;
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  resize: vertical;
+}
+
+/* Base button row styles - only common properties */
+.sdi-button-row,
+.pssa-button-row,
+.keystones-button-row,
+.pasa-button-row,
+.cbms-date-button-row {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* SDI button row specific */
+.sdi-button-row {
+  padding-left: 105px;
+}
+
+/* Test button rows (PSSA, Keystones, PASA) */
+.pssa-button-row,
+.keystones-button-row,
+.pasa-button-row {
+  padding-left: 45px;  /* Reduced from 85px to find a better middle ground */
+}
+
+/* CBMs date button row specific */
+.cbms-date-button-row {
+  padding-left: 90px;
+}
+
+/* Common button styles */
+.sdi-btn,
+.assessment-btn {
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  padding: 4px 12px;
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  transition: all var(--transition-duration) var(--transition-easing);
+  font-size: 0.9rem;
+  min-width: 70px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;  /* Reset any margins */
+}
+
+.sdi-btn:hover:not(:disabled),
+.assessment-btn:hover:not(:disabled) {
+  background-color: var(--color-accent-hover);
+}
+
+/* Style for remove buttons */
+.remove-sdi-btn,
+.remove-test-btn,
+.remove-date-btn,
+.remove-assessment-btn,
+.grades-remove-class-btn {
+  background-color: white !important;
+  color: var(--color-accent) !important;
+  border: 1px solid var(--color-accent) !important;
+  opacity: 1;
+  transition: opacity 0.2s ease;
+  font-weight: bold !important;  /* Make remove button text bold */
+}
+
+.remove-sdi-btn[style*="visibility: hidden"],
+.remove-test-btn[style*="visibility: hidden"],
+.remove-date-btn[style*="visibility: hidden"],
+.remove-assessment-btn[style*="visibility: hidden"],
+.grades-remove-class-btn[style*="visibility: hidden"] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Disabled state for remove buttons */
+.remove-sdi-btn:disabled,
+.remove-test-btn:disabled,
+.remove-date-btn:disabled,
+.remove-assessment-btn:disabled,
+.grades-remove-class-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  color: #999 !important;
+  border-color: #999 !important;
+}
+
+/* Remove any individual margins since we're handling spacing with gap */
+.remove-sdi-btn,
+.add-sdi-btn {
+  margin: 0;
+}
+
+/* Grades buttons specific styles */
+.grades-class-btn-row {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px;
+  align-items: center;
+  padding-left: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+.grades-add-wrap { justify-self: center; }
+.grades-remove-wrap { justify-self: start; }
+
+/* Class name cell holds input and inline remove button */
+.grades-class-cell { display: flex; align-items: center; gap: 8px; }
+.grades-remove-row-btn {
+  background-color: #f1f1f1 !important;
+  color: var(--color-accent) !important;
+  border: 1px solid var(--color-accent) !important;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+.grades-remove-wrap { display: none; }
+
+/* Compact Semester grid */
+.grades-sem-grid {
+  display: inline-grid;
+  grid-template-columns: minmax(340px, 520px) 120px 120px 110px;
+  gap: 8px 12px;
+  align-items: start;
+  margin-left: calc(85px + 1rem);
+}
+.grades-sem-grid .subtitle {
+  font-weight: 600;
+}
+.grades-class-input-compact {
+  width: 100%;
+  max-width: 480px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.grades-mp-input-compact {
+  width: 100%;
+  max-width: 120px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.grades-sem-actions {
+  margin-top: 10px;
+  margin-left: calc(85px + 1rem);
+}
+
+.grades-semester-actions {
+  margin-top: 12px;
+  margin-left: 18px;
+}
+
+.grades-add-semester-btn {
+  min-width: 110px;
+  height: 30px;
+  background-color: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 4px 12px;
+}
+
+.grades-semester-2-actions {
+  margin-top: 10px;
+  margin-left: 18px;
+}
+.grades-remove-semester-btn {
+  min-width: 110px;
+  height: 30px;
+  background-color: #fff;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 4px 12px;
+  font-weight: bold;
+}
+
+.grades-remove-inline-btn {
+  background-color: #fff;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  border-radius: 4px;
+  padding: 4px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.grades-class-btn-row > div {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.grades-add-class-btn,
+.grades-remove-class-btn {
+  min-width: 70px;
+  height: 28px;
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--button-radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin: 0;
+  transition: background-color var(--transition-duration) var(--transition-easing);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 12px;
+}
+
+/* Description Section Styles */
+.description-section {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.description-section .sdi-input-row {
+  margin-left: 0;
+  margin-bottom: 0;
+}
+
+.description-section .sdi-label {
+  min-width: 85px;
+  padding-top: 0.5rem;
+}
+
+/* SDI Error Message */
+.sdi-error-message {
+  color: #dc3545;
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  background-color: #fff3f3;
+  border: 1px solid #ffcdd2;
+  border-radius: 4px;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  animation: fadeInOut 0.3s ease-in;
+}
+
+.error-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* No Changes Message */
+.sdi-no-change-message {
+  text-align: center;
+  font-weight: bold;
+  color: #000000;
+  margin: 0.2rem auto 1.5rem;
+  font-size: 1rem;
+  background-color: #fafafa;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 1rem 0;
+  width: 100%;
+}
+
+/* ========== Grid Form Styles ========== */
+.grid-form-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.grid-field {
+  display: flex;
+  flex-direction: row;  /* Make all fields row direction by default */
+  align-items: center;
+  gap: 1rem;
+}
+
+.grid-field label {
+  min-width: 85px;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  color: var(--color-text);
+  white-space: nowrap;  /* Prevent label wrapping */
+}
+
+/* Input and select styles */
+.grid-field input[type="text"],
+.grid-field select {
+  padding: 0.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+/* First row text inputs */
+.grid-form-row:first-child .grid-field input[type="text"] {
+  width: calc(100% - 95px);
+}
+
+/* Second row dropdowns - slightly smaller */
+.grid-form-row:nth-child(2) .grid-field select {
+  width: 180px;  /* Fixed smaller width for dropdowns */
+}
+
+/* Primary Disability field container */
+.grid-field.gap-sm {
+  flex-wrap: nowrap;
+  gap: 1rem;
+}
+
+/* Primary and Secondary Disability specify inputs */
+.grid-field.gap-sm input[type="text"],
+#secondaryDisabilitySpecify {
+  width: 180px;  /* Match dropdown width */
+  margin-left: 1rem;
+}
+
+/* Secondary Disability Toggle and Fields */
+.grid-field.gap-xs.gap-sm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1rem;
+}
+
+.secondary-disability-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-right: 1rem;
+  white-space: nowrap;
+  min-width: fit-content;
+}
+
+.secondary-disability-toggle input[type="checkbox"] {
+  margin: 0;
+}
+
+/* Secondary disability fields */
+#secondaryDisability {
+  width: 180px;
+  display: none;
+}
+
+#secondaryDisabilitySpecify {
+  width: 180px;
+  display: none;
+  margin-left: 1rem;
+}
+
+/* Show fields when checkbox is checked */
+#addSecondaryDisability:checked ~ #secondaryDisability,
+#addSecondaryDisability:checked ~ #secondaryDisabilitySpecify {
+  display: inline-block;
+}
+
+.grid-field input[type="text"].short,
+.grid-field select.short {
+  width: 200px;
+}
+
+.grid-field input[type="text"].row1-wide,
+.grid-field select.row1-wide {
+  width: 100%;
+}
+
+.grid-field.gap-xs {
+  gap: 0.25rem;
+}
+
+.custom-pronoun-box {
+  width: 150px !important;
+}
+
+/* ========== Additional Information RTE styles ========== */
+.rte-row-bg {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 4px;
+}
+
+/* Ensure dropdowns have enough height */
+.grid-field select {
+  height: auto;
+  padding: 0.4rem 0.5rem;
+  min-height: 2.1em;
+}
+
+/* Specific adjustments for grade and graduation year dropdowns */
+#grade, #gradYear {
+  height: auto;
+  padding: 0.4rem 0.5rem;
+  min-height: 2.1em;
+}
+
+.grades-table-header {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px;
+  font-weight: bold;
+  background: #fafafa;
+  border-bottom: 1px solid #ccc;
+  padding: 0.25rem 0;
+}
+
+.grades-table-row {
+  display: grid;
+  grid-template-columns: 1fr 100px 100px;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.grades-class-label {
+  text-align: center;
+}
+
+.grades-mp-label {
+  text-align: center;
+}
+
+.grades-mp-input {
+  width: 100%;
+  text-align: center;
+}
+
+/* Remove previous margin-left for MP1/MP3 */
+.grades-table-header .grades-mp-label:first-of-type,
+.grades-mp1,
+.grades-mp3 {
+  margin-left: 0;
+}
+
+.grades-class-input {
+  width: 100%;
+  max-width: 250px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+.grades-mp-input {
+  width: 90px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+.grades-table-header .grades-mp-label:first-of-type {
+  margin-left: 24px;
+}
+
+.grades-mp1,
+.grades-mp3 {
+  margin-left: 24px;
+}
+
+.grades-toggle-btn {
+  background-color: #666;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.grades-toggle-btn:hover {
+  background-color: #444;
+}
+
+.grades-table-container {
+  /* Remove flexbox so children align left by default */
+}
+
+/* Add space between Grades title/date row and first semester card */
+#gradesContent .goal-card:first-of-type {
+  margin-top: 16px !important;
+}
+
+/* Collapsible Section Styles */
+.section-toggle-btn {
+  width: 100%;
+  text-align: left;
+  padding: 12px 15px;
+  background-color: #f0e6e0;  /* Slightly darker, more saturated warm background */
+  border: 1px solid #e6d6d0;  /* Adjusted border color to match new background */
+  border-radius: 8px;  /* Slightly increased border radius */
+  cursor: pointer;
+  margin-bottom: 0;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  transition: all 0.2s ease;
+  color: #2a1f1f;  /* Darker text for better contrast */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.section-toggle-btn:hover {
+  background-color: #e8dcd5;  /* Slightly darker on hover */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;  /* Slightly larger icon */
+  height: 28px;
+  text-align: center;
+  margin-right: 12px;
+  background-color: #fff;
+  border-radius: 50%;
+  font-size: 16px;
+  color: var(--color-accent);  /* Using accent color for better visibility */
+  transition: transform 0.2s ease;
+  border: 1px solid rgba(201, 124, 93, 0.2);  /* Very subtle border using accent color */
+}
+
+.section-content {
+  padding: 20px;
+  border-radius: 0 0 8px 8px;
+  display: block;
+  background-color: #fff;  /* White background for content area */
+}
+
+.collapsible-section {
+  margin-bottom: 1.5rem;
+  border: none;
+}
+
+/* Styling for expanded state */
+.section-toggle-btn[aria-expanded="true"] {
+  border-radius: 8px 8px 0 0;
+  border: 1px solid #e6d6d0;
+  border-bottom: none;
+  margin-bottom: 0;
+  background-color: #e8dcd5;  /* Slightly darker when expanded */
+}
+
+.section-toggle-btn[aria-expanded="true"] .toggle-icon {
+  transform: rotate(90deg);
+  background-color: #fff;  /* Keep white background when expanded */
+}
+
+.section-toggle-btn[aria-expanded="true"] + .section-content {
+  border: 1px solid #e6d6d0;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+/* Styling for collapsed state */
+.section-toggle-btn[aria-expanded="false"] {
+  border: 1px solid #e6d6d0;
+  margin-bottom: 0;
+}
+
+/* Add subtle text shadow for better readability */
+.section-toggle-btn span:not(.toggle-icon) {
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Tab Bar Navigation */
+.tab-bar {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  background: none;
+  border-bottom: none;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 2em;
+}
+.tab-item {
+  flex: 1 1 0;
+  text-align: center;
+  padding: 1em 0.5em 0.7em 0.5em;
+  font-size: 1.1em;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-bottom: none;
+  border-radius: 0;
+  background: transparent;
+  transition: background 0.2s, color 0.2s, border 0.2s;
+  position: relative;
+  z-index: 1;
+}
+.tab-item.active {
+  border: 2px solid #fff !important;
+  border-bottom: none !important;
+  border-right: 2px solid #fff !important;
+  color: #fff !important;
+  box-sizing: border-box;
+  z-index: 2;
+}
+.tab-item[data-section="0"] {
+  background: #1b2a41;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+.tab-item[data-section="1"] {
+  background: #243b55;
+}
+.tab-item[data-section="2"] {
+  background: #2f4c6e;
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+.tab-item:not(:last-child) {
+  border-right: 2px solid #f5b97e;
+}
+
+@media (max-width: 700px) {
+  .tab-item {
+    font-size: 0.95em;
+    padding: 0.7em 0.2em 0.3em 0.2em;
+  }
+}
+
+.centered-output {
+  width: 90%;
+  margin: 0 auto 1.5em auto;
+  max-width: 1200px;
+  min-width: 260px;
+  box-sizing: border-box;
+}
+@media (max-width: 1200px) {
+  .centered-output {
+    width: 98%;
+    min-width: 0;
+    max-width: 100vw;
+  }
+}
+
+/* Horizontal Arrows Row */
+.nav-arrows-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin: 1em auto 2em auto;
+  max-width: 900px;
+}
+
+.nav-arrow-horizontal {
+  background: #1e2a38;
+  color: #fff;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.7em;
+  font-weight: bold;
+  box-shadow: 0 1px 4px rgba(25, 118, 210, 0.12);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  user-select: none;
+  border: none;
+}
+.nav-arrow-horizontal:hover {
+  background: #ffb47b;
+  color: #1e2a38;
+  font-weight: bold;
+}
+
+/* Slider Container/Section Responsive */
+.slider-container {
+  display: flex;
+  flex-direction: row;
+  width: 300vw;
+  transition: transform 0.5s cubic-bezier(0.77,0,0.175,1);
+  will-change: transform;
+  min-height: 80vh;
+}
+.slider-section {
+  width: 100vw;
+  min-height: 80vh;
+  padding: 2em 2em 2em 2em;
+  box-sizing: border-box;
+  background: #fff;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+.slider-section > h1 {
+  color: #b84c00 !important;
+  font-size: 2.3rem !important;
+  font-weight: bold !important;
+  margin-bottom: 28px !important;
+  font-family: 'Open Sans', 'Lato', Arial, system-ui, sans-serif;
+}
+@media (max-width: 700px) {
+  .slider-section {
+    padding: 1em 0.5em;
+  }
+  .tab-item {
+    font-size: 0.95em;
+    padding: 0.7em 0.2em 0.3em 0.2em;
+  }
+  .centered-output, .nav-arrows-row {
+    width: 98%;
+    max-width: 100vw;
+  }
+}
+
+.card-section {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(44, 44, 44, 0.07), 0 1.5px 4px rgba(44,44,44,0.04);
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  margin-bottom: 2.2rem;
+  transition: box-shadow 0.2s;
+}
+.card-section:hover {
+  box-shadow: 0 4px 24px rgba(44,44,44,0.13), 0 2px 8px rgba(44,44,44,0.07);
+}
+
+@media (max-width: 900px) {
+  .slider-section > h1 {
+    font-size: 1.5rem !important;
+    margin-bottom: 18px !important;
+  }
+  .card-section {
+    padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+  }
+  .generate-report-btn {
+    font-size: 1em;
+    padding: 0.7em 1.2em;
+  }
+}
+
+/* PLFP Collapsible Card Styles */
+.plfp-card {
+  background: #fff5ec;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.10);
+  padding: 18px 20px;
+  margin-bottom: 15px;
+  transition: background 0.2s;
+  display: flex;
+  flex-direction: column;
+}
+.plfp-card:hover {
+  background: #ffe3c7;
+}
+
+/* PLAA Current Academic Progress - Goal cards */
+.goal-card {
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  background: #fafbfc;
+  padding: 18px 20px;
+  margin-bottom: 28px;
+}
+.goal-card .goal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.plfp-card .show-hide-btn {
+  font-weight: bold;
+  font-size: 1.1em;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: none;
+  border: none;
+  outline: none;
+  color: #b84c00;
+  padding: 0;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+@media (max-width: 600px) {
+  .plfp-card {
+    padding: 12px 8px;
+  }
+  .plfp-card .show-hide-btn {
+    font-size: 1em;
+  }
+}
+
+#plfp-editor {
+  padding: 1.5rem 2rem 1.5rem 2rem !important;
+  box-sizing: border-box;
+}
+
+#plfp-editor h1 {
+  font-family: Arial !important;
+  font-size: 14pt !important;
+  font-weight: bold !important;
+  text-decoration: underline !important;
+  margin-bottom: 1rem !important;
+  color: #000000 !important;
+}
+
+#plfp-editor h2 {
+  font-family: Arial !important;
+  font-size: 12pt !important;
+  font-weight: bold !important;
+  text-decoration: none !important;
+  margin-bottom: 0.25rem !important;
+  color: #000000 !important;
+}
+
+#plfp-editor h3 {
+  font-family: Arial !important;
+  font-size: 10pt !important;
+  font-weight: bold !important;
+  text-decoration: none !important;
+  margin-bottom: 0.25rem !important;
+  margin-top: 1.25rem !important;
+  color: #000000 !important;
+}
+
+/* Transition output editor scoped styles */
+#transition-editor h4 {
+  font-family: Arial !important;
+  font-size: 10pt !important;
+  font-weight: bold !important;
+  font-style: italic !important;
+  text-decoration: none !important;
+  margin-top: 0 !important;
+  margin-bottom: 0.5rem !important;
+  color: #000000 !important;
+}

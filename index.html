@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="IEP Tool for managing Present Levels of Academic Achievement" />
+  
+  <title>IEP Tool 3.0</title>
+  <link rel="stylesheet" href="CSS/style.css" media="all" />
+  
+  <!-- Add Quill local includes -->
+  <link href="JS/PLAA/libs/quill.snow.css" rel="stylesheet">
+  <script src="JS/PLAA/libs/quill.min.js"></script>
+  <!-- Prefer local TinyMCE (self-hosted); fallback to CDN if not found -->
+ 
+  <script>
+    (function ensureTinyLoaded() {
+      if (!window.tinymce) {
+        var s = document.createElement('script');
+        s.src = 'https://cdn.tiny.cloud/1/d58fiodekht2u067zdq8fwqufde7ymq2x96vchcjgp7xif40/tinymce/6/tinymce.min.js';
+        s.referrerPolicy = 'origin';
+        document.head.appendChild(s);
+      }
+    })();
+  </script>
+  
+</head>
+<body>
+  <nav class="tab-bar">
+    <div class="tab-item active" data-section="0">Present Levels of Academic Achievement</div>
+    <div class="tab-item" data-section="1">Present Levels of Functional Performance</div>
+    <div class="tab-item" data-section="2">Present Levels Towards Post-Secondary Transition Goals</div>
+  </nav>
+  <div class="slider-container">
+    <section class="slider-section" id="section-0">
+      <h1>Present Levels of Academic Achievement</h1>
+
+      <div class="card-section">
+        <section aria-labelledby="general-academic-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="general-academic"
+            id="general-academic-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>General Statement</span>
+          </button>
+
+          <div 
+            id="general-academic" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="general-academic-heading"
+            hidden>
+            
+            <h2 id="general-academic-heading" class="visually-hidden">
+              General Statement Section
+            </h2>
+
+            <p>This is where the general statement form will go.</p>
+          </div>
+        </section>
+        <section aria-labelledby="current-progress-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="current-progress"
+            id="current-progress-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Current Academic Progress</span>
+          </button>
+          <div 
+            id="current-progress" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="current-progress-heading"
+            hidden>
+            <h2 id="current-progress-heading" class="visually-hidden">
+              Current Academic Progress Section
+            </h2>
+            <p>This is where the current academic progress form will go.</p>
+          </div>
+        </section>
+        <section aria-labelledby="previous-achievement-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="previous-achievement"
+            id="previous-achievement-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Summary of State and Local Assessments</span>
+          </button>
+          <div 
+            id="previous-achievement" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="previous-achievement-heading"
+            hidden>
+            <h2 id="previous-achievement-heading" class="visually-hidden">
+              Review of Previous Academic Achievement Section
+            </h2>
+            <p>This is where the previous academic achievement form will go.</p>
+          </div>
+        </section>
+        <section aria-labelledby="evaluation-assessment-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="evaluation-assessment"
+            id="evaluation-assessment-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Evaluation/Re-Evaluation Assessment (Aptitude & Achievement)</span>
+          </button>
+          <div 
+            id="evaluation-assessment" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="evaluation-assessment-heading"
+            hidden>
+            <div class="evaluation-include-controls">
+              <label class="checkbox-label" for="include-aptitude-achievement">
+                <input type="checkbox" id="include-aptitude-achievement" />
+                <span>Include Aptitude & Achievement Assessments</span>
+              </label>
+              <label class="checkbox-label" for="exclude-aptitude-achievement">
+                <input type="checkbox" id="exclude-aptitude-achievement" checked />
+                <span>Do Not Include Aptitude & Achievement Assessments</span>
+              </label>
+            </div>
+          </div>
+        </section>
+        <button id="generate-plaa-report-btn" class="generate-report-btn" type="button">Generate Report</button>
+        <div id="editor-container" class="rte-box-outer centered-output">
+          <div id="plaa-editor" style="height: 400px;"></div>
+        </div>
+      </div>
+      <div class="nav-arrows-row">
+        <div class="nav-arrow-horizontal nav-arrow-left" id="arrow-left">&#8592;</div>
+        <div class="nav-arrow-horizontal nav-arrow-right" id="arrow-right">&#8594;</div>
+      </div>
+    </section>
+    <!-- Present Levels of Functional Performance Section (PLFP) -->
+    <section class="slider-section" id="section-1">
+      <h1>Present Levels of Functional Performance</h1>
+      <div class="card-section">
+        <section aria-labelledby="attendance-summary-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="attendance-summary-content"
+            id="attendance-summary-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Attendance Summary</span>
+          </button>
+          <div 
+            id="attendance-summary-content" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="attendance-summary-heading"
+            hidden>
+            <h2 id="attendance-summary-heading" class="visually-hidden">
+              Attendance Summary Section
+            </h2>
+          </div>
+        </section>
+        <section aria-labelledby="stakeholder-input-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="stakeholder-input-content"
+            id="stakeholder-input-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Stakeholder Input</span>
+          </button>
+          <div 
+            id="stakeholder-input-content" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="stakeholder-input-heading"
+            hidden>
+            <h2 id="stakeholder-input-heading" class="visually-hidden">
+              Stakeholder Input Section
+            </h2>
+          </div>
+        </section>
+        <section aria-labelledby="functional-skills-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="functional-skills-content"
+            id="functional-skills-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Functional Skills Assessments</span>
+          </button>
+          <div 
+            id="functional-skills-content" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="functional-skills-heading"
+            hidden>
+            <h2 id="functional-skills-heading" class="visually-hidden">
+              Functional Skills Assessments Section
+            </h2>
+            <div class="evaluation-include-controls">
+              <label class="checkbox-label" for="include-functional-assessments">
+                <input type="checkbox" id="include-functional-assessments" />
+                <span>Include Functional/Behavioral/Adaptive Skills Assessments</span>
+              </label>
+              <label class="checkbox-label" for="exclude-functional-assessments">
+                <input type="checkbox" id="exclude-functional-assessments" checked />
+                <span>Do Not Include Functional/Behavioral/Adaptive Skills Assessments</span>
+              </label>
+            </div>
+          </div>
+        </section>
+        <button id="generate-plfp-report-btn" class="generate-report-btn" type="button">Generate Report</button>
+        <div id="plfp-editor-container" class="rte-box-outer centered-output">
+          <div id="plfp-editor" style="height: 400px;"></div>
+        </div>
+      </div>
+    </section>
+    <section class="slider-section" id="section-2">
+      <h1>Present Levels Towards Post-Secondary Transition Goals</h1>
+      <div class="card-section">
+        <section aria-labelledby="transition-education-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="transition-education"
+            id="transition-education-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Post-Secondary Education & Training</span>
+          </button>
+          <div 
+            id="transition-education" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="transition-education-heading"
+            hidden>
+            <h2 id="transition-education-heading" class="visually-hidden">
+              Post-Secondary Education & Training Section
+            </h2>
+          </div>
+        </section>
+        <section aria-labelledby="transition-employment-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="transition-employment"
+            id="transition-employment-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Post-Secondary Employment</span>
+          </button>
+          <div 
+            id="transition-employment" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="transition-employment-heading"
+            hidden>
+            <h2 id="transition-employment-heading" class="visually-hidden">
+              Post-Secondary Employment Section
+            </h2>
+            <p>This is where the post-secondary employment form will go.</p>
+          </div>
+        </section>
+        <section aria-labelledby="transition-independent-living-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="transition-independent-living"
+            id="transition-independent-living-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Independent Living</span>
+          </button>
+          <div 
+            id="transition-independent-living" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="transition-independent-living-heading"
+            hidden>
+            <h2 id="transition-independent-living-heading" class="visually-hidden">
+              Independent Living Section
+            </h2>
+            <p>This is where the independent living form will go.</p>
+          </div>
+        </section>
+        <section aria-labelledby="transition-agency-involvement-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="transition-agency-involvement"
+            id="transition-agency-involvement-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Agency Involvement</span>
+          </button>
+          <div 
+            id="transition-agency-involvement" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="transition-agency-involvement-heading"
+            hidden>
+            <h2 id="transition-agency-involvement-heading" class="visually-hidden">
+              Agency Involvement Section
+            </h2>
+            <p>This is where the agency involvement form will go.</p>
+          </div>
+        </section>
+        <button id="generate-transition-report-btn" class="generate-report-btn" type="button">Generate Report</button>
+        <div id="transition-editor-container" class="rte-box-outer centered-output">
+          <div id="transition-editor" style="height: 400px;"></div>
+        </div>
+      </div>
+      <div class="nav-arrows-row">
+        <div class="nav-arrow-horizontal nav-arrow-left" id="arrow-left">&#8592;</div>
+        <div class="nav-arrow-horizontal nav-arrow-right" id="arrow-right">&#8594;</div>
+      </div>
+    </section>
+  </div>
+  <script src="JS/PLAA/Main/main.js" defer></script>
+  <script type="module" src="JS/PLAA/Main/plaaMain.js"></script>
+  <script type="module" src="JS/PLFP/Main/plfpMain.js"></script>
+ <script type="module" src="JS/Transition/Main/transitionMain.js"></script>
+  <script>
+    // Tab and slider navigation logic with global in-memory activePage
+    window.activePage = 0;
+    document.addEventListener('DOMContentLoaded', function() {
+      const sliderContainer = document.querySelector('.slider-container');
+      const sections = document.querySelectorAll('.slider-section');
+      const tabItems = document.querySelectorAll('.tab-item');
+
+      function updateSlider() {
+        sliderContainer.style.transform = `translateX(-${window.activePage * 100}vw)`;
+        tabItems.forEach((item, idx) => {
+          if (idx === window.activePage) {
+            item.classList.add('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+        // Update arrows in all sections
+        document.querySelectorAll('.nav-arrows-row').forEach((row, idx) => {
+          const left = row.querySelector('.nav-arrow-left');
+          const right = row.querySelector('.nav-arrow-right');
+          if (left) left.style.visibility = idx === 0 ? 'hidden' : 'visible';
+          if (right) right.style.visibility = idx === sections.length - 1 ? 'hidden' : 'visible';
+        });
+      }
+
+      tabItems.forEach((item, idx) => {
+        item.onclick = () => {
+          tabItems.forEach(t => t.classList.remove('active'));
+          item.classList.add('active');
+          window.activePage = idx;
+          updateSlider();
+        };
+      });
+      // Arrow navigation for each section
+      document.querySelectorAll('.nav-arrows-row').forEach((row, idx) => {
+        const left = row.querySelector('.nav-arrow-left');
+        const right = row.querySelector('.nav-arrow-right');
+        if (left) left.onclick = () => {
+          if (window.activePage > 0) {
+            window.activePage--;
+            updateSlider();
+          }
+        };
+        if (right) right.onclick = () => {
+          if (window.activePage < sections.length - 1) {
+            window.activePage++;
+            updateSlider();
+          }
+        };
+      });
+
+      // Initial state
+      updateSlider();
+    });
+  </script>
+</body>
+</html>
