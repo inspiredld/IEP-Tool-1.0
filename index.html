@@ -383,24 +383,51 @@
       });
 
       // Copy buttons
-      function copyFromEditor(editorInstance, fallbackElementId) {
-        try {
-          const el = document.getElementById(fallbackElementId);
-          const html = editorInstance?.getContent ? editorInstance.getContent() : (el?.value || el?.innerHTML || '');
-          const plain = editorInstance?.getContent ? editorInstance.getContent({ format: 'text' }) : (el?.value || el?.innerText || '');
+      function legacyCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text || '';
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+      function indicateCopied(btn) {
+        if (!btn) return;
+        const original = btn.innerText;
+        btn.innerText = 'Copied!';
+        setTimeout(() => { btn.innerText = original; }, 1200);
+      }
+      function copyFromEditor(editorInstance, fallbackElementId, btnEl) {
+        const el = document.getElementById(fallbackElementId);
+        const html = editorInstance?.getContent ? editorInstance.getContent() : (el?.value || el?.innerHTML || '');
+        const plain = editorInstance?.getContent ? editorInstance.getContent({ format: 'text' }) : (el?.value || el?.innerText || '');
+        if (window.ClipboardItem && navigator.clipboard && navigator.clipboard.write) {
           const item = new ClipboardItem({
             'text/html': new Blob([html], { type: 'text/html' }),
             'text/plain': new Blob([plain], { type: 'text/plain' })
           });
-          navigator.clipboard.write([item]).catch(() => navigator.clipboard.writeText(plain));
-        } catch (e) {
-          const text = editorInstance?.getContent ? editorInstance.getContent({ format: 'text' }) : (document.getElementById(fallbackElementId)?.innerText || '');
-          navigator.clipboard.writeText(text);
+          navigator.clipboard.write([item])
+            .then(() => indicateCopied(btnEl))
+            .catch(() => navigator.clipboard.writeText(plain)
+              .then(() => indicateCopied(btnEl))
+              .catch(() => { legacyCopy(plain); indicateCopied(btnEl); }));
+        } else if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(plain)
+            .then(() => indicateCopied(btnEl))
+            .catch(() => { legacyCopy(plain); indicateCopied(btnEl); });
+        } else {
+          legacyCopy(plain);
+          indicateCopied(btnEl);
         }
       }
-      document.getElementById('copy-plaa')?.addEventListener('click', () => copyFromEditor(window.plaaEditorInstance, 'plaa-editor'));
-      document.getElementById('copy-plfp')?.addEventListener('click', () => copyFromEditor(window.plfpEditorInstance, 'plfp-editor'));
-      document.getElementById('copy-transition')?.addEventListener('click', () => copyFromEditor(window.transitionEditorInstance, 'transition-editor'));
+      document.getElementById('copy-plaa')?.addEventListener('click', (e) => copyFromEditor(window.plaaEditorInstance, 'plaa-editor', e.currentTarget));
+      document.getElementById('copy-plfp')?.addEventListener('click', (e) => copyFromEditor(window.plfpEditorInstance, 'plfp-editor', e.currentTarget));
+      document.getElementById('copy-transition')?.addEventListener('click', (e) => copyFromEditor(window.transitionEditorInstance, 'transition-editor', e.currentTarget));
 
       // Initial state
       updateSlider();
