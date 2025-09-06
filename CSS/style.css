@@ -275,7 +275,7 @@ section h2, section h1 {
   background: #fff;
   min-height: 150px;
   margin-top: 2rem;
-    padding: 0;
+  padding: 0;
   overflow: hidden;
 }
 
@@ -373,6 +373,28 @@ section h2, section h1 {
 
 .tox-edit-area__iframe {
   background: #fff !important;
+}
+
+/* Copy button row and styling */
+.rte-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.copy-btn {
+  background-color: var(--accent-blue);
+  color: #fff;
+  border: none;
+  border-radius: var(--button-radius);
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-weight: 600;
+}
+.copy-btn:hover {
+  background-color: #125a9c;
 }
 
 /* Additional Information RTE styles */

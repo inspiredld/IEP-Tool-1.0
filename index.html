@@ -11,7 +11,8 @@
   <!-- Add Quill local includes -->
   <link href="JS/PLAA/libs/quill.snow.css" rel="stylesheet">
   <script src="JS/PLAA/libs/quill.min.js"></script>
-  <!-- Prefer local TinyMCE (self-hosted); fallback to CDN if not found -->
+  <!-- Load local TinyMCE first; fallback to CDN if not present -->
+  <script src="JS/libs/tinymce/tinymce.min.js"></script>
  
   <script>
     (function ensureTinyLoaded() {
@@ -130,8 +131,11 @@
           </div>
         </section>
         <button id="generate-plaa-report-btn" class="generate-report-btn" type="button">Generate Report</button>
+        <div class="rte-actions centered-output" aria-label="Output actions">
+          <button type="button" class="copy-btn" id="copy-plaa">Copy</button>
+        </div>
         <div id="editor-container" class="rte-box-outer centered-output">
-          <div id="plaa-editor" style="height: 400px;"></div>
+          <textarea id="plaa-editor" style="height: 400px;"></textarea>
         </div>
       </div>
       <div class="nav-arrows-row">
@@ -214,8 +218,11 @@
           </div>
         </section>
         <button id="generate-plfp-report-btn" class="generate-report-btn" type="button">Generate Report</button>
+        <div class="rte-actions centered-output" aria-label="Output actions">
+          <button type="button" class="copy-btn" id="copy-plfp">Copy</button>
+        </div>
         <div id="plfp-editor-container" class="rte-box-outer centered-output">
-          <div id="plfp-editor" style="height: 400px;"></div>
+          <textarea id="plfp-editor" style="height: 400px;"></textarea>
         </div>
       </div>
     </section>
@@ -306,8 +313,11 @@
           </div>
         </section>
         <button id="generate-transition-report-btn" class="generate-report-btn" type="button">Generate Report</button>
+        <div class="rte-actions centered-output" aria-label="Output actions">
+          <button type="button" class="copy-btn" id="copy-transition">Copy</button>
+        </div>
         <div id="transition-editor-container" class="rte-box-outer centered-output">
-          <div id="transition-editor" style="height: 400px;"></div>
+          <textarea id="transition-editor" style="height: 400px;"></textarea>
         </div>
       </div>
       <div class="nav-arrows-row">
@@ -371,6 +381,26 @@
           }
         };
       });
+
+      // Copy buttons
+      function copyFromEditor(editorInstance, fallbackElementId) {
+        try {
+          const el = document.getElementById(fallbackElementId);
+          const html = editorInstance?.getContent ? editorInstance.getContent() : (el?.value || el?.innerHTML || '');
+          const plain = editorInstance?.getContent ? editorInstance.getContent({ format: 'text' }) : (el?.value || el?.innerText || '');
+          const item = new ClipboardItem({
+            'text/html': new Blob([html], { type: 'text/html' }),
+            'text/plain': new Blob([plain], { type: 'text/plain' })
+          });
+          navigator.clipboard.write([item]).catch(() => navigator.clipboard.writeText(plain));
+        } catch (e) {
+          const text = editorInstance?.getContent ? editorInstance.getContent({ format: 'text' }) : (document.getElementById(fallbackElementId)?.innerText || '');
+          navigator.clipboard.writeText(text);
+        }
+      }
+      document.getElementById('copy-plaa')?.addEventListener('click', () => copyFromEditor(window.plaaEditorInstance, 'plaa-editor'));
+      document.getElementById('copy-plfp')?.addEventListener('click', () => copyFromEditor(window.plfpEditorInstance, 'plfp-editor'));
+      document.getElementById('copy-transition')?.addEventListener('click', () => copyFromEditor(window.transitionEditorInstance, 'transition-editor'));
 
       // Initial state
       updateSlider();

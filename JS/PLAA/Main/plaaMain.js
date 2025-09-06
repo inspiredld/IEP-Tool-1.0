@@ -68,19 +68,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Academic Evaluation section removed per requirement
 
-  // Initialize TinyMCE for PLAA editor (supports tables)
+  // Initialize TinyMCE for PLAA editor (full RTE)
   if (window.tinymce && document.getElementById('plaa-editor')) {
     tinymce.init({
       selector: '#plaa-editor',
       license_key: 'gpl',
-      menubar: false,
+      menubar: 'file edit view insert format tools table help',
       height: 400,
-      plugins: 'lists link table code',
-      toolbar: 'undo redo | bold italic underline | forecolor backcolor | bullist numlist outdent indent | alignleft aligncenter alignright | link | table | removeformat | code',
+      plugins: 'lists link table code preview searchreplace visualblocks visualchars wordcount autoresize insertdatetime charmap pagebreak nonbreaking anchor advlist quickbars',
+      toolbar: 'undo redo | styles | bold italic underline strikethrough | forecolor backcolor | bullist numlist outdent indent | alignleft aligncenter alignright alignjustify | link | table | removeformat | searchreplace | preview code',
+      toolbar_mode: 'sliding',
       table_default_attributes: { border: '1' },
       table_default_styles: { 'border-collapse': 'collapse' },
-      base_url: '../JS/libs/tinymce',
-      content_style: 'body { font-family: Arial, sans-serif; font-size: 10pt; } h1 { font-size:14pt; font-weight:bold; text-decoration:underline; } p { margin: 0 0 0.5rem 0; } table { margin:1rem 0 0.5rem 0; }',
+      base_url: 'JS/libs/tinymce',
+      content_style: 'body { font-family: Arial, sans-serif; font-size: 10pt; padding: 1.25rem 1.5rem; box-sizing: border-box; } h1 { font-size:14pt; font-weight:bold; text-decoration:underline; } p { margin: 0 0 0.5rem 0; } table { margin:1rem 0 0.5rem 0; }',
       setup(editor) {
         window.plaaEditorInstance = editor;
       }
