@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="compare-contrast"/> <span>compare/contrast</span></label>
                       <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="characters-setting-plot"/> <span>characters, setting, plot</span></label>
                       <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="retell-sequence"/> <span>retell (in sequence)</span></label>
-                      <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="authors-purpose"/> <span>author’s purpose</span></label>
+                      <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="authors-purpose"/> <span>author's purpose</span></label>
                       <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="theme"/> <span>theme</span></label>
                       <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="text-evidence"/> <span>text evidence</span></label>
                       <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="cause-effect"/> <span>cause/effect</span></label>
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <label class="goal-subheading gs-goal-text-title">Measurable Annual Goal</label>
             <div class="rte-box-outer gs-rte-inline"><textarea id="${editorId}" class="gs-goal-textarea"></textarea></div>
             <div class="gs-generate-row"><button type="button" class="generate-report-btn gs-generate-goal-btn">Generate Goal</button></div>
-          </div>
+            </div>
         </div>
       </div>`;
 
@@ -321,6 +321,239 @@ document.addEventListener('DOMContentLoaded', () => {
     wireFluencyCategory(typeContent);
   }
 
+  // Basic Writing template (scaffolded similar to Reading Comprehension)
+  function renderWriting(typeContent) {
+    const editorId = `gs-goal-text-${++gsEditorCounter}`;
+    typeContent.innerHTML = `
+      <div class="goal-quad-grid" style="margin-top: 28px; grid-template-columns: 0.65fr 1.35fr;">
+        <div class="cell">
+          <div class="cell-top">
+            <label>1. Condition</label>
+          </div>
+          <div class="rcg-condition">
+            <div class="rcg-condition-row" style="display:flex; flex-direction:column; gap:8px; margin-left: 0; width: 100%; align-items: flex-start;">
+              <div style="display:flex; align-items:center; gap:10px; margin-left: 0;">
+                <label class="rcg-prompt">Given...</label>
+                <span class="rcg-italic">Select all that apply:</span>
+              </div>
+              <div class="wc-cond-list" style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin-left: 12px; max-width: 860px;">
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="writing-prompt" /> <span>a writing prompt</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="graphic-organizer" /> <span>a graphic organizer</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="sentence-starters" /> <span>sentence starters/frames</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="teacher-model" /> <span>a teacher-modeled example</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="peer-feedback" /> <span>peer feedback</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="word-processor" /> <span>a word processor</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="rubric" /> <span>a rubric</span></label>
+                <label class="wc-cond-grade-row" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; grid-column:1 / -1; flex-wrap: nowrap;">
+                  <input type="checkbox" class="wc-cond wc-cond-grade" value="grade-level-prompt" />
+                  <span>a </span>
+                  <select class="wc-grade-select" style="min-width: 120px; display:none; margin-left: 2px;">
+                    <option value="">select grade</option>
+                    <option value="K">K</option>
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="5th">5th</option>
+                    <option value="6th">6th</option>
+                    <option value="7th">7th</option>
+                    <option value="8th">8th</option>
+                    <option value="9th">9th</option>
+                    <option value="10th">10th</option>
+                    <option value="11th">11th</option>
+                    <option value="12th">12th</option>
+                  </select>
+                  <span> grade level writing prompt</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; grid-column:1 / -1;">
+                  <input type="checkbox" class="wc-cond wc-cond-other" value="other" />
+                  <span>Other</span>
+                  <span class="wc-cond-other-box" style="display:none; align-items:center; gap:8px; margin-left: 10px; flex-wrap:wrap;">
+                    <input type="text" class="wc-cond-other-input" placeholder="describe" style="width: 360px; min-width: 180px; max-width: 820px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-top">
+            <label>2. Behavior</label>
+          </div>
+          <div class="rcg-behavior">
+            <div class="wc-behavior-grid" style="display:grid; grid-template-columns: 0.6fr 1.4fr; gap: 8px 96px; align-items:start;">
+              <div class="wc-col wc-col-left">
+                <div class="wc-left-grid" style="display:grid; grid-template-columns: max-content 1fr; column-gap: 10px; row-gap: 24px; align-items:center;">
+                  <label class="wc-left-label">[Student] will...</label>
+                  <select class="rcg-behavior-type">
+                    <option value="">select one</option>
+                    <option value="write">write</option>
+                    <option value="plan">plan</option>
+                    <option value="draft">draft</option>
+                    <option value="revise">revise</option>
+                    <option value="edit">edit</option>
+                    <option value="publish">publish</option>
+                    <option value="compose">compose</option>
+                    <option value="summarize">summarize</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div class="rcg-behavior-other-inline" style="display:none; grid-column: 2 / 3;">
+                    <input type="text" class="rcg-behavior-input" placeholder="describe" style="width: 360px; max-width: 360px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                  </div>
+                  <label class="rcg-prompt">Length</label>
+                  <div class="wc-length-row" style="display:flex; align-items:center; gap:8px; margin-top: 4px;">
+                    <input type="text" class="wc-length-input" placeholder="#" style="max-width:80px; width:80px; text-align:center; padding:6px 10px; border:1px solid #ccc; border-radius:4px;" />
+                    <select class="wc-length-unit" style="min-width: 160px;">
+                      <option value="">select unit</option>
+                      <option value="sentences">sentence(s)</option>
+                      <option value="paragraphs">paragraph(s)</option>
+                <option value="other">other</option>
+              </select>
+                  </div>
+                  <div class="wc-length-other" style="display:none; grid-column: 2 / 3; margin-top: 8px;">
+                    <input type="text" class="wc-length-other-input" placeholder="describe" style="width: 260px; max-width: 420px; padding: 6px 10px; border:1px solid #ccc; border-radius:4px;" />
+                  </div>
+                </div>
+              </div>
+              <div class="wc-col wc-col-components">
+                <div class="wc-components" style="margin-top:0;">
+                  <label class="rcg-prompt">Optional: including...</label>
+                  <div class="wc-components-list" style="display:flex; flex-direction:column; gap:8px; margin-top: 6px;">
+                    <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" value="intro-body-conclusion" class="wc-comp" /><span>introduction/body/conclusion</span></label>
+                    <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" value="supporting-details" class="wc-comp" /><span>supporting details/evidence</span></label>
+                    <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" value="grammar-mechanics" class="wc-comp" /><span>grammar/mechanics</span></label>
+                    <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" value="varied-sentence-structure" class="wc-comp" /><span>varied sentence structure</span></label>
+                    <label class="wc-comp-other-row" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;">
+                      <input type="checkbox" class="wc-comp wc-components-other" value="other"/>
+                      <span>Other</span>
+                      <span class="wc-components-other-box" style="display:none; align-items:center; gap:8px; margin-left: 10px; flex-wrap:wrap;">
+                        <input type="text" class="wc-components-other-input" placeholder="describe" style="width: 360px; min-width: 180px; max-width: 820px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell span-2">
+          <label>3. Performance Criteria (with...)</label>
+          <div class="rcg-performance">
+            <div class="rcg-performance-grid">
+              <div class="pc-col">
+                <div class="pc-row"><label>Category</label>
+                  <select class="rcg-performance-category" style="max-width: 260px;">
+                    <option value="">select one</option>
+                    <option value="accuracy">Accuracy (%)</option>
+                    <option value="percentile">Percentile</option>
+                    <option value="num-correct"># Correct</option>
+                    <option value="num-errors"># of Errors Allowed</option>
+                    <option value="rubric">Rubric/Rating Scale</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="pc-col">
+                <div class="pc-row"><label>Mastery Level</label></div>
+                <div class="rcg-performance-mastery">
+                  <div class="rcg-mastery-grid" style="text-align:center;">
+                    <div class="ml-col">
+                      <div class="ml-top">
+                        <label class="rcg-prompt">Preposition</label>
+                        <select class="ml-preposition-select" style="min-width: 180px; text-align: left;">
+                          <option value="">Select One</option>
+                          <option value="in">in</option>
+                          <option value="across">across</option>
+                          <option value="over">over</option>
+                          <option value="during">during</option>
+                <option value="other">other</option>
+              </select>
+            </div>
+                      <div class="ml-slot"></div>
+                    </div>
+                    <div class="ml-col">
+                      <div class="ml-top">
+                        <label class="rcg-prompt"># or Ratio</label>
+                        <select class="ml-count-select" style="width: 80px; min-width: 80px;">
+                          <option value="">Select One</option>
+                          <option value="count">#</option>
+                          <option value="ratio">ratio</option>
+                        </select>
+                      </div>
+                      <div class="ml-slot"></div>
+                    </div>
+                    <div class="ml-col">
+                      <div class="ml-top">
+                        <label class="rcg-prompt">Frequency</label>
+                        <select class="ml-frequency-select" style="min-width: 140px;">
+                          <option value="">Select One</option>
+                          <option value="daily">Daily</option>
+                          <option value="weekly">Weekly</option>
+                          <option value="monthly">Monthly</option>
+                          <option value="two-per-month">2x/month</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      <div class="ml-slot"></div>
+                    </div>
+                    <div class="ml-col">
+                      <div class="ml-top">
+                        <label class="rcg-prompt">Units</label>
+                        <select class="ml-units-select" style="min-width: 160px;">
+                          <option value="">Select One</option>
+                          <option value="trials">trials</option>
+                          <option value="opportunities">opportunities</option>
+                          <option value="attempts">attempts</option>
+                          <option value="sessions">sessions</option>
+                          <option value="probes">probes</option>
+                          <option value="tasks">tasks</option>
+                          <option value="assessments">assessments</option>
+                          <option value="observations">observations</option>
+                          <option value="measures">measures</option>
+                          <option value="measurements">measurements</option>
+                          <option value="other">other</option>
+                        </select>
+                      </div>
+                      <div class="ml-slot"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="gs-goal-text gs-inline">
+            <label class="goal-subheading gs-goal-text-title">Measurable Annual Goal</label>
+            <div class="rte-box-outer gs-rte-inline"><textarea id="${editorId}" class="gs-goal-textarea"></textarea></div>
+            <div class="gs-generate-row"><button type="button" class="generate-report-btn gs-generate-goal-btn">Generate Goal</button></div>
+          </div>
+        </div>
+      </div>`;
+
+    // Reuse existing wiring for dynamic pieces and MAG composition
+    wireConditionControls(typeContent);
+    wireBehaviorControls(typeContent);
+    wirePerformanceControls(typeContent);
+    wireMasteryPreposition(typeContent);
+    wireCountRatioControls(typeContent);
+    wireFrequencyControls(typeContent);
+    wireUnitsControls(typeContent);
+    ensureMasteryOtherRows(typeContent);
+    wireMagComposer(typeContent);
+    // Writing components: toggle 'Other' describe input
+    try {
+      const compOther = typeContent.querySelector('.wc-components-other');
+      const compOtherBox = typeContent.querySelector('.wc-components-other-box');
+      if (compOther && compOtherBox) {
+        const toggle = () => { compOtherBox.style.display = compOther.checked ? 'inline-flex' : 'none'; };
+        compOther.addEventListener('change', toggle);
+        toggle();
+      }
+    } catch (_) {}
+    wireWritingLengthOther(typeContent);
+  }
+
   function wireCard(scope) {
     // Placeholder for future per-card wiring
   }
@@ -332,6 +565,8 @@ document.addEventListener('DOMContentLoaded', () => {
     sel.addEventListener('change', () => {
       if (sel.value === 'reading-comprehension' || sel.value === 'reading-fluency') {
         renderReadingComprehension(content, sel.value);
+      } else if (sel.value === 'writing') {
+        renderWriting(content);
       } else if (content) {
         content.innerHTML = '';
       }
@@ -355,6 +590,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!content) return;
       if (sel.value === 'reading-comprehension' || sel.value === 'reading-fluency') {
         renderReadingComprehension(content, sel.value);
+      } else if (sel.value === 'writing') {
+        renderWriting(content);
       } else {
         content.innerHTML = '';
       }
@@ -564,6 +801,41 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const buildCondition = () => {
       const sel = root.querySelector('.rcg-condition-type');
+      // Writing: checklist-based conditions
+      const wcList = root.querySelector('.wc-cond-list');
+      if (wcList) {
+        const items = [];
+        wcList.querySelectorAll('.wc-cond').forEach(cb => {
+          const input = cb;
+          if (!(input instanceof HTMLInputElement)) return;
+          if (!input.checked) return;
+          const val = input.value;
+          if (val === 'grade-level-prompt') {
+            const grade = root.querySelector('.wc-grade-select')?.value?.trim();
+            if (grade) items.push(`a ${grade}-grade level writing prompt`);
+            else items.push('a grade level writing prompt');
+            return;
+          }
+          if (val === 'other') {
+            const otherTxt = root.querySelector('.wc-cond-other-input')?.value?.trim();
+            if (otherTxt) items.push(otherTxt);
+            return;
+          }
+          // Map known items to phrases
+          switch (val) {
+            case 'writing-prompt': items.push('a writing prompt'); break;
+            case 'graphic-organizer': items.push('a graphic organizer'); break;
+            case 'sentence-starters': items.push('sentence starters/frames'); break;
+            case 'teacher-model': items.push('a teacher-modeled example'); break;
+            case 'peer-feedback': items.push('peer feedback'); break;
+            case 'word-processor': items.push('a word processor'); break;
+            case 'rubric': items.push('a rubric'); break;
+            default: break;
+          }
+        });
+        const phrase = items.length ? joinWithAnd(items) : '';
+        return phrase;
+      }
       if (!sel) return '';
       const val = sel.value;
       const label = getSelectedText(sel);
@@ -615,6 +887,78 @@ document.addEventListener('DOMContentLoaded', () => {
         verb = getSelectedText(sel);
       }
       verb = (verb || '').toLowerCase();
+      // Writing mode: has wc-components/length controls
+      const writingMode = !!root.querySelector('.wc-components');
+      if (writingMode) {
+        // Length phrase
+        const lenNumRaw = root.querySelector('.wc-length-input')?.value?.trim();
+        const lenUnitSel = root.querySelector('.wc-length-unit');
+        const lenUnitVal = lenUnitSel ? (lenUnitSel.value || '') : '';
+        const lenUnitRaw = lenUnitVal ? (getSelectedText(lenUnitSel)?.toLowerCase() || '') : '';
+        const lenNum = lenNumRaw && !isNaN(Number(lenNumRaw)) ? Number(lenNumRaw) : null;
+        const isPlural = (n) => n === null ? true : n !== 1;
+        const normalizeUnit = (raw, n) => {
+          if (!raw) return '';
+          if (raw.startsWith('sentence')) return isPlural(n) ? 'sentences' : 'sentence';
+          if (raw.startsWith('paragraph')) return isPlural(n) ? 'paragraphs' : 'paragraph';
+          if (raw.startsWith('other')) {
+            const otherTxt = root.querySelector('.wc-length-other-input')?.value?.trim();
+            return otherTxt || 'response';
+          }
+          return raw;
+        };
+        const lenUnit = normalizeUnit(lenUnitRaw, lenNum);
+        let lengthPhrase = '';
+        if (!lenUnitVal) {
+          // No unit selected: default to generic response
+          lengthPhrase = 'a response';
+        } else {
+          const nStr = (lenNum !== null ? String(lenNum) : '___');
+          let base = 'sentence';
+          if (lenUnitVal === 'paragraphs') base = 'paragraph';
+          if (lenUnitVal === 'other') {
+            const custom = (root.querySelector('.wc-length-other-input')?.value?.trim()) || '[describe]';
+            lengthPhrase = `a ${nStr}-${custom} response`;
+          } else {
+            lengthPhrase = `a ${nStr}-${base} response`;
+          }
+        }
+        // Components checklist → canonical phrasing
+        let compItems = [];
+        root.querySelectorAll('.wc-components .wc-comp').forEach(cb => {
+          const input = cb;
+          if (!(input instanceof HTMLInputElement)) return;
+          if (!input.checked) return;
+          const val = (input.value || '').toLowerCase();
+          if (input.classList.contains('wc-components-other')) {
+            const otherTxt = root.querySelector('.wc-components-other-input')?.value?.trim();
+            if (otherTxt) compItems.push(otherTxt);
+            else compItems.push('other');
+            return;
+          }
+          switch (val) {
+            case 'intro-body-conclusion':
+              compItems.push('an introduction, body, and conclusion');
+              break;
+            case 'supporting-details':
+              compItems.push('supporting details and evidence');
+              break;
+            case 'grammar-mechanics':
+              compItems.push('appropriate grammar and mechanics');
+              break;
+            case 'varied-sentence-structure':
+              compItems.push('varied sentence structures');
+              break;
+            default: {
+              const span = input.closest('label')?.querySelector('span');
+              const text = (span?.textContent || '').trim();
+              if (text) compItems.push(text.toLowerCase());
+            }
+          }
+        });
+        const includingPhrase = compItems.length ? ` including ${joinWithAnd(compItems)}` : '';
+        return [verb, lengthPhrase, includingPhrase].filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+      }
       // Reading Fluency: no RC checklist. Just return the verb.
       const isFluency = !!root.querySelector('.pc-fluency-cats');
       if (isFluency) return verb;
@@ -921,6 +1265,25 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (_) {}
       });
     });
+    // Writing: grade-level prompt dropdown toggle
+    try {
+      const gradeChk = root.querySelector('.wc-cond-grade');
+      const gradeSel = root.querySelector('.wc-grade-select');
+      if (gradeChk && gradeSel && !gradeChk._wired) {
+        gradeChk._wired = true;
+        const toggle = () => { gradeSel.style.display = gradeChk.checked ? 'inline-block' : 'none'; };
+        gradeChk.addEventListener('change', toggle);
+        toggle();
+      }
+      const condOther = root.querySelector('.wc-cond-other');
+      const condOtherBox = root.querySelector('.wc-cond-other-box');
+      if (condOther && condOtherBox && !condOther._wired) {
+        condOther._wired = true;
+        const toggle2 = () => { condOtherBox.style.display = condOther.checked ? 'inline-flex' : 'none'; };
+        condOther.addEventListener('change', toggle2);
+        toggle2();
+      }
+    } catch (_) {}
   }
 
   function wireBehaviorControls(root) {
@@ -1108,6 +1471,20 @@ document.addEventListener('DOMContentLoaded', () => {
         if (other) other.style.display = sel.value === 'other' ? 'flex' : 'none';
       });
     });
+  }
+
+  // Writing: show/hide Length 'other' describe
+  function wireWritingLengthOther(root) {
+    try {
+      const unitSel = root.querySelector('.wc-length-unit');
+      const otherRow = root.querySelector('.wc-length-other');
+      if (unitSel && otherRow && !unitSel._wcUnitWired) {
+        unitSel._wcUnitWired = true;
+        const toggle = () => { otherRow.style.display = unitSel.value === 'other' ? 'block' : 'none'; };
+        unitSel.addEventListener('change', toggle);
+        toggle();
+      }
+    } catch (_) {}
   }
 
   function wireFluencyCategory(root) {

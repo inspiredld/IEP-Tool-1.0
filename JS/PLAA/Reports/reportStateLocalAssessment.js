@@ -44,8 +44,7 @@ export function generateStateLocalAssessmentOutput(returnOnly = false) {
   // Start building the output HTML
   let output = '';
 
-  // Add four blank lines before the section
-  output += '<p><br></p><p><br></p><p><br></p><p><br></p>';
+  // Removed extra leading blank rows; section manages its own spacing
 
   // Add the section heading
   output += '<h1 style="font-family: Arial; font-size: 14pt; font-weight: bold; text-decoration: underline;">Summary of State and Local Assessments</h1>';
@@ -71,6 +70,8 @@ export function generateStateLocalAssessmentOutput(returnOnly = false) {
         // Add dynamic PSSA table
         const pssaRows = Array.from(document.querySelectorAll('#pssaTestContainer .pssa-input-row'));
         if (pssaRows.length > 0) {
+          // Add a blank row between the narrative and the specific table
+          output += '<p><br></p>';
           output += `<table style="font-family: Arial; font-size: 10pt; border-collapse: collapse; margin-top: 10px; margin-bottom: 10px; width: auto;">
             <thead>
               <tr>
@@ -100,11 +101,13 @@ export function generateStateLocalAssessmentOutput(returnOnly = false) {
         const pssaDescription = document.getElementById('pssaDescriptionBox')?.value?.trim();
         if (pssaDescription) {
           output += `<p style=\"font-family: Arial; font-size: 10pt; margin-top: 0.5em;\">${pssaDescription}</p>`;
+          output += '<p><br></p>';
         }
       }
       // Add Keystones description if this is the Keystones section
       if (section.id === 'keystonesCheckbox') {
         output += `<p style="font-family: Arial; font-size: 10pt;">The Keystone Exams are end-of-course assessments in Algebra I, Literature, and Biology that serve as one component of Pennsylvania's graduation requirements. Students can meet this requirement by scoring Proficient or Advanced on all three exams, or by earning a composite score of at least 4452 across the three exams, as long as they score at least Basic on two of them and no Below Basic scores. Additional state-approved pathways may also be available for students who do not meet these criteria.</p>`;
+        output += '<p><br></p>';
         output += `<p style="font-family: Arial; font-size: 10pt;">A summary of ${firstName}'s Keystone results are as follows:</p>`;
         // Add dynamic Keystones table
         const keystoneRows = Array.from(document.querySelectorAll('#keystonesTestContainer .keystones-input-row'));
@@ -138,6 +141,7 @@ export function generateStateLocalAssessmentOutput(returnOnly = false) {
         const keystonesDescription = document.getElementById('keystonesDescriptionBox')?.value?.trim();
         if (keystonesDescription) {
           output += `<p style=\"font-family: Arial; font-size: 10pt; margin-top: 0.5em;\">${keystonesDescription}</p>`;
+          output += '<p><br></p>';
         }
       }
       // Add PASA description if this is the PASA section
@@ -146,6 +150,8 @@ export function generateStateLocalAssessmentOutput(returnOnly = false) {
         // Add dynamic PASA table
         const pasaRows = Array.from(document.querySelectorAll('#pasaTestContainer .pasa-input-row'));
         if (pasaRows.length > 0) {
+          // Blank line before PASA table
+          output += '<p><br></p>';
           output += `<table style="font-family: Arial; font-size: 10pt; border-collapse: collapse; margin-top: 10px; margin-bottom: 10px; width: auto;">
             <thead>
               <tr>
@@ -187,7 +193,7 @@ export function generateStateLocalAssessmentOutput(returnOnly = false) {
           const signif = row.querySelector('.cbms-significance-textarea')?.value?.trim();
           const dateRows = Array.from(row.querySelectorAll('.cbms-date-row'));
           if (name || desc || signif) {
-            if (cbmCount > 0) output += '<br><br>';
+            if (cbmCount === 0) output += '<p><br></p>'; else output += '<br><br>';
             output += `<div style='margin-left: 40px; margin-bottom: 2em;'>`;
             if (name) output += `<h3 style="font-family: Arial; font-size: 10pt; font-weight: bold; margin-left: 0;">${name}</h3>`;
             if (desc) output += `<p style="font-family: Arial; font-size: 10pt; margin-left: 0;">${desc}</p>`;
@@ -229,7 +235,7 @@ export function generateStateLocalAssessmentOutput(returnOnly = false) {
           const signif = row.querySelector('.other-significance-textarea')?.value?.trim();
           const dateRows = Array.from(row.querySelectorAll('.other-date-row'));
           if (name || desc || signif) {
-            if (otherCount > 0) output += '<br><br>';
+            if (otherCount === 0) output += '<p><br></p>'; else output += '<br><br>';
             output += `<div style='margin-left: 40px; margin-bottom: 2em;'>`;
             if (name) output += `<h3 style="font-family: Arial; font-size: 10pt; font-weight: bold; margin-left: 0;">${name}</h3>`;
             if (desc) output += `<p style="font-family: Arial; font-size: 10pt; margin-left: 0;">${desc}</p>`;

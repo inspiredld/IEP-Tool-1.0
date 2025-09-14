@@ -6,7 +6,7 @@
   <meta name="description" content="IEP Tool for managing Present Levels of Academic Achievement" />
   
   <title>IEP Tool 3.0</title>
-  <link rel="stylesheet" href="CSS/style.css?v=goals-bg-2" media="all" />
+  <link rel="stylesheet" href="CSS/style.css?v=section-rte-autoresize-1" media="all" />
   
   <!-- Add Quill local includes -->
   <link href="JS/PLAA/libs/quill.snow.css" rel="stylesheet">
@@ -61,6 +61,12 @@
             </h2>
 
             <p>This is where the general statement form will go.</p>
+            <div id="plaa-gs-editor-container" class="rte-box-outer centered-output" style="margin-top: 16px;">
+              <textarea id="plaa-gs-editor" style="height: 300px;"></textarea>
+            </div>
+            <div class="rte-actions centered-output" aria-label="General Statement Output actions">
+              <button type="button" class="generate-report-btn" id="generate-plaa-gs-report-btn">Generate General Statement</button>
+            </div>
           </div>
         </section>
         <section aria-labelledby="current-progress-heading">
@@ -132,11 +138,11 @@
             </div>
           </div>
         </section>
-        <button id="generate-plaa-report-btn" class="generate-report-btn" type="button">Generate Report</button>
-        <div id="editor-container" class="rte-box-outer centered-output">
+        <button id="generate-plaa-report-btn" class="generate-report-btn" type="button" hidden>Generate Report</button>
+        <div id="editor-container" class="rte-box-outer centered-output" hidden>
           <textarea id="plaa-editor" style="height: 400px;"></textarea>
         </div>
-        <div class="rte-actions centered-output" aria-label="Output actions">
+        <div class="rte-actions centered-output" aria-label="Output actions" hidden>
           <button type="button" class="copy-btn" id="copy-plaa">Copy Report</button>
         </div>
       </div>
@@ -238,11 +244,11 @@
             </div>
           </div>
         </section>
-        <button id="generate-plfp-report-btn" class="generate-report-btn" type="button">Generate Report</button>
-        <div id="plfp-editor-container" class="rte-box-outer centered-output">
+        <button id="generate-plfp-report-btn" class="generate-report-btn" type="button" hidden>Generate Report</button>
+        <div id="plfp-editor-container" class="rte-box-outer centered-output" hidden>
           <textarea id="plfp-editor" style="height: 400px;"></textarea>
         </div>
-        <div class="rte-actions centered-output" aria-label="Output actions">
+        <div class="rte-actions centered-output" aria-label="Output actions" hidden>
           <button type="button" class="copy-btn" id="copy-plfp">Copy Report</button>
         </div>
       </div>
@@ -351,11 +357,11 @@
             <p>This is where the agency involvement form will go.</p>
           </div>
         </section>
-        <button id="generate-transition-report-btn" class="generate-report-btn" type="button">Generate Report</button>
-        <div id="transition-editor-container" class="rte-box-outer centered-output">
+        <button id="generate-transition-report-btn" class="generate-report-btn" type="button" hidden>Generate Report</button>
+        <div id="transition-editor-container" class="rte-box-outer centered-output" hidden>
           <textarea id="transition-editor" style="height: 400px;"></textarea>
         </div>
-        <div class="rte-actions centered-output" aria-label="Output actions">
+        <div class="rte-actions centered-output" aria-label="Output actions" hidden>
           <button type="button" class="copy-btn" id="copy-transition">Copy Report</button>
         </div>
       </div>
@@ -449,9 +455,9 @@
     </section>
   </div>
   <script src="JS/PLAA/Main/main.js" defer></script>
-  <script type="module" src="JS/PLAA/Main/plaaMain.js"></script>
-  <script type="module" src="JS/PLFP/Main/plfpMain.js"></script>
-  <script type="module" src="JS/Transition/Main/transitionMain.js"></script>
+  <script type="module" src="JS/PLAA/Main/plaaMain.js?v=section-rte-3"></script>
+  <script type="module" src="JS/PLFP/Main/plfpMain.js?v=plfp-section-rte-2"></script>
+  <script type="module" src="JS/Transition/Main/transitionMain.js?v=transition-section-rte-1"></script>
   <!-- Swap to Goals & SDIs renderer for Goals tab -->
   <script type="module" src="JS/GoalsSDIs/Main/goalsSdisMain.js?v=rc-grade-ui-3"></script>
   <script>

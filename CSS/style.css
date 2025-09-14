@@ -1,3 +1,18 @@
+#plaa-sla-editor-container {
+  margin-top: 32px !important;
+  background: #f0e6e0;
+  border: 1px solid #e6d6d0;
+  border-radius: 12px;
+  padding: 16px 16px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.05);
+}
+#plaa-sla-editor-container .tox-tinymce { border: 1px solid #dcdcdc !important; border-radius: 10px !important; box-shadow: none !important; max-height: 600px; overflow: hidden; }
+#plaa-sla-actions { display: flex; justify-content: center; margin-bottom: 12px; }
+#plaa-sla-actions .generate-report-btn { border-radius: 999px; padding: 0.7rem 1.6rem; font-weight: 700; color: #fff; background: linear-gradient(90deg, #ffb47b 0%, #b84c00 100%); border: none; box-shadow: 0 2px 6px rgba(184, 76, 0, 0.25); }
+#plaa-sla-actions .generate-report-btn:hover, #plaa-sla-actions .generate-report-btn:focus { background: linear-gradient(90deg, #e39b66 0%, #a04300 100%); box-shadow: 0 4px 10px rgba(184, 76, 0, 0.35); }
+#plaa-sla-footer { display: flex; justify-content: flex-end; margin-top: 10px; }
+#plaa-sla-footer .copy-btn { background: #ffffff; color: #b84c00; border: 1px solid #b84c00; border-radius: 24px; padding: 0.45rem 1rem; font-weight: 700; }
+#plaa-sla-footer .copy-btn:hover { background: #ffe9dc; }
 .rcg-condition-other-inline .rcg-grade-select{ margin-right:8px; }
 .rcg-condition-other-inline .rcg-or-sep{ margin:0 8px; }
 .rcg-condition-other-inline.show{ display:block !important; }
@@ -2036,6 +2051,39 @@ section h2, section h1 {
   background: #ffe3c7;
 }
 
+/* PLFP section editors (match PLAA section look/feel) */
+#plfp-attendance-editor-container,
+#plfp-stakeholder-editor-container,
+#plfp-functional-editor-container {
+  margin-top: 64px !important;
+  background: #f0e6e0;
+  border: 1px solid #e6d6d0;
+  border-radius: 12px;
+  padding: 16px 16px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.05);
+}
+#plfp-attendance-editor-container .tox-tinymce { max-height: 600px; }
+#plfp-stakeholder-editor-container .tox-tinymce,
+#plfp-functional-editor-container .tox-tinymce {
+  border: 1px solid #dcdcdc !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  max-height: 1200px;
+  overflow: hidden;
+}
+#plfp-attendance-actions,
+#plfp-stakeholder-actions,
+#plfp-functional-actions { display: flex; justify-content: center; margin-bottom: 12px; }
+#plfp-attendance-actions .generate-report-btn,
+#plfp-stakeholder-actions .generate-report-btn,
+#plfp-functional-actions .generate-report-btn { border-radius: 999px; padding: 0.7rem 1.6rem; font-weight: 700; color: #fff; background: linear-gradient(90deg, #ffb47b 0%, #b84c00 100%); border: none; box-shadow: 0 2px 6px rgba(184, 76, 0, 0.25); }
+#plfp-attendance-actions .generate-report-btn:hover, #plfp-attendance-actions .generate-report-btn:focus,
+#plfp-stakeholder-actions .generate-report-btn:hover, #plfp-stakeholder-actions .generate-report-btn:focus,
+#plfp-functional-actions .generate-report-btn:hover, #plfp-functional-actions .generate-report-btn:focus { background: linear-gradient(90deg, #e39b66 0%, #a04300 100%); box-shadow: 0 4px 10px rgba(184, 76, 0, 0.35); }
+#plfp-attendance-footer, #plfp-stakeholder-footer, #plfp-functional-footer { display: flex; justify-content: flex-end; margin-top: 10px; }
+#plfp-attendance-footer .copy-btn, #plfp-stakeholder-footer .copy-btn, #plfp-functional-footer .copy-btn { background: #ffffff; color: #b84c00; border: 1px solid #b84c00; border-radius: 24px; padding: 0.45rem 1rem; font-weight: 700; }
+#plfp-attendance-footer .copy-btn:hover, #plfp-stakeholder-footer .copy-btn:hover, #plfp-functional-footer .copy-btn:hover { background: #ffe9dc; }
+
 /* PLAA Current Academic Progress - Goal cards */
 .goal-card {
   border: 1px solid #bbb;
@@ -2125,6 +2173,64 @@ section h2, section h1 {
   display: flex;
   justify-content: center;      /* center contents within the full row */
 }
+
+/* PLAA General Statement section editor: spacing and subtle colored background */
+#plaa-gs-editor-container {
+  margin-top: 128px !important; /* 4x current spacing */
+  background: #f0e6e0; /* warm panel similar to MAG */
+  border: 1px solid #e6d6d0;
+  border-radius: 12px;
+  padding: 16px 16px 20px; /* comfortable inner padding */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.05);
+}
+#plaa-gs-editor-container .tox-tinymce {
+  border: 1px solid #dcdcdc !important;
+  border-radius: 10px !important;
+  box-shadow: none !important; /* keep it flat inside the card */
+  max-height: 600px; /* expands up to 600px, then inner area scrolls */
+  overflow: hidden; /* let inner area scroll */
+}
+#plaa-gs-actions { display: flex; justify-content: center; margin-bottom: 12px; }
+#plaa-gs-footer { display: flex; justify-content: flex-end; margin-top: 10px; }
+#plaa-cap-editor-container {
+  margin-top: 64px !important;
+  background: #f0e6e0;
+  border: 1px solid #e6d6d0;
+  border-radius: 12px;
+  padding: 16px 16px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.05);
+}
+#plaa-cap-editor-container .tox-tinymce { border: 1px solid #dcdcdc !important; border-radius: 10px !important; box-shadow: none !important; }
+#plaa-cap-editor-container .tox-tinymce { max-height: 600px; overflow: hidden; }
+#plaa-cap-actions { display: flex; justify-content: center; margin-bottom: 12px; }
+#plaa-cap-actions .generate-report-btn { border-radius: 999px; padding: 0.7rem 1.6rem; font-weight: 700; color: #fff; background: linear-gradient(90deg, #ffb47b 0%, #b84c00 100%); border: none; box-shadow: 0 2px 6px rgba(184, 76, 0, 0.25); }
+#plaa-cap-actions .generate-report-btn:hover, #plaa-cap-actions .generate-report-btn:focus { background: linear-gradient(90deg, #e39b66 0%, #a04300 100%); box-shadow: 0 4px 10px rgba(184, 76, 0, 0.35); }
+#plaa-cap-footer { display: flex; justify-content: flex-end; margin-top: 10px; }
+#plaa-cap-footer .copy-btn { background: #ffffff; color: #b84c00; border: 1px solid #b84c00; border-radius: 24px; padding: 0.45rem 1rem; font-weight: 700; }
+#plaa-cap-footer .copy-btn:hover { background: #ffe9dc; }
+#plaa-gs-footer .copy-btn {
+  background: #ffffff;
+  color: #b84c00;
+  border: 1px solid #b84c00;
+  border-radius: 24px;
+  padding: 0.45rem 1rem;
+  font-weight: 700;
+}
+#plaa-gs-footer .copy-btn:hover { background: #ffe9dc; }
+#plaa-gs-actions .generate-report-btn {
+  border-radius: 999px; /* pill */
+  padding: 0.7rem 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(90deg, #ffb47b 0%, #b84c00 100%);
+  border: none;
+  box-shadow: 0 2px 6px rgba(184, 76, 0, 0.25);
+}
+#plaa-gs-actions .generate-report-btn:hover,
+#plaa-gs-actions .generate-report-btn:focus {
+  background: linear-gradient(90deg, #e39b66 0%, #a04300 100%);
+  box-shadow: 0 4px 10px rgba(184, 76, 0, 0.35);
+}
 .goal-card .goal-header {
   display: flex;
   align-items: center;
@@ -2200,6 +2306,44 @@ section h2, section h1 {
   margin-bottom: 0.5rem !important;
   color: #000000 !important;
 }
+
+/* Transition section editors styling */
+#transition-edu-editor-container,
+#transition-emp-editor-container,
+#transition-il-editor-container,
+#transition-agency-editor-container {
+  margin-top: 64px !important;
+  background: #f0e6e0;
+  border: 1px solid #e6d6d0;
+  border-radius: 12px;
+  padding: 16px 16px 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.05);
+}
+#transition-edu-editor-container .tox-tinymce,
+#transition-emp-editor-container .tox-tinymce,
+#transition-il-editor-container .tox-tinymce,
+#transition-agency-editor-container .tox-tinymce {
+  border: 1px solid #dcdcdc !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  max-height: 600px;
+  overflow: hidden;
+}
+#transition-edu-actions,
+#transition-emp-actions,
+#transition-il-actions,
+#transition-agency-actions { display: flex; justify-content: center; margin-bottom: 12px; }
+#transition-edu-actions .generate-report-btn,
+#transition-emp-actions .generate-report-btn,
+#transition-il-actions .generate-report-btn,
+#transition-agency-actions .generate-report-btn { border-radius: 999px; padding: 0.7rem 1.6rem; font-weight: 700; color: #fff; background: linear-gradient(90deg, #ffb47b 0%, #b84c00 100%); border: none; box-shadow: 0 2px 6px rgba(184, 76, 0, 0.25); }
+#transition-edu-actions .generate-report-btn:hover, #transition-edu-actions .generate-report-btn:focus,
+#transition-emp-actions .generate-report-btn:hover, #transition-emp-actions .generate-report-btn:focus,
+#transition-il-actions .generate-report-btn:hover, #transition-il-actions .generate-report-btn:focus,
+#transition-agency-actions .generate-report-btn:hover, #transition-agency-actions .generate-report-btn:focus { background: linear-gradient(90deg, #e39b66 0%, #a04300 100%); box-shadow: 0 4px 10px rgba(184, 76, 0, 0.35); }
+#transition-edu-footer, #transition-emp-footer, #transition-il-footer, #transition-agency-footer { display: flex; justify-content: flex-end; margin-top: 10px; }
+#transition-edu-footer .copy-btn, #transition-emp-footer .copy-btn, #transition-il-footer .copy-btn, #transition-agency-footer .copy-btn { background: #ffffff; color: #b84c00; border: 1px solid #b84c00; border-radius: 24px; padding: 0.45rem 1rem; font-weight: 700; }
+#transition-edu-footer .copy-btn:hover, #transition-emp-footer .copy-btn:hover, #transition-il-footer .copy-btn:hover, #transition-agency-footer .copy-btn:hover { background: #ffe9dc; }
 
 /* Ensure inner layer of each Goals card is white */
 .goals-academic-card .goals-card-inner.rcg-card { background: #ffffff !important; }

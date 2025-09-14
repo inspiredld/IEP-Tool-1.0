@@ -36,14 +36,14 @@ export function generateGeneralStatementOutput(returnOnly = false) {
     return `${grade}-grade`;
   }
 
-  // Compose output
-  let output = '';
+  // Compose output: include section heading
+  let output = '<h1>General Statement</h1><p><br></p>';
   if (addSecondary && secondaryDisability) {
     // Template 2: Primary & Secondary Disability
-    output = `<p>${firstName} is a ${formatGrade(grade)} student at ${school}. ${capitalize(pronounPossessive)} anticipated graduation year is ${gradYear}. ${firstName} qualifies for special education services due to a primary disability of ${formatDisability(primaryDisability, primaryDisabilitySpecify)} and a secondary disability of ${formatDisability(secondaryDisability, secondaryDisabilitySpecify)}.</p>`;
+    output += `<p>${firstName} is a ${formatGrade(grade)} student at ${school}. ${capitalize(pronounPossessive)} anticipated graduation year is ${gradYear}. ${firstName} qualifies for special education services due to a primary disability of ${formatDisability(primaryDisability, primaryDisabilitySpecify)} and a secondary disability of ${formatDisability(secondaryDisability, secondaryDisabilitySpecify)}.</p>`;
   } else {
     // Template 1: Primary Disability Only
-    output = `<p>${firstName} is a ${formatGrade(grade)} student at ${school}. ${capitalize(pronounPossessive)} anticipated graduation year is ${gradYear}. ${firstName} qualifies for special education services due to a primary disability of ${formatDisability(primaryDisability, primaryDisabilitySpecify)}.</p>`;
+    output += `<p>${firstName} is a ${formatGrade(grade)} student at ${school}. ${capitalize(pronounPossessive)} anticipated graduation year is ${gradYear}. ${firstName} qualifies for special education services due to a primary disability of ${formatDisability(primaryDisability, primaryDisabilitySpecify)}.</p>`;
   }
 
   // Get Additional Information from Quill RTE (if any)
