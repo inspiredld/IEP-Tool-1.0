@@ -9,6 +9,12 @@ import { generateTransitionIndependentLivingReport } from '../Reports/reportInde
 import { generateAgencyInvolvementReport } from '../Reports/reportAgencyInvolvement.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Wire student bar custom pronouns for Transition
+  try {
+    const proSel = document.getElementById('transition-pronouns-select');
+    const custom = document.getElementById('transition-student-custom');
+    if (proSel && custom) proSel.addEventListener('change', () => { custom.hidden = proSel.value !== 'other'; });
+  } catch (_) {}
   const edu = document.getElementById('transition-education');
   if (edu) createTransitionEducationForm(edu);
 
@@ -46,12 +52,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const outDiv = document.getElementById('transition-editor');
   if (genBtn && outDiv) {
     genBtn.addEventListener('click', () => {
-      // Pull student name and possessive pronoun from PLAA inputs
-      const firstName = document.getElementById('firstName')?.value?.trim() || '[Name]';
-      const pronouns = document.getElementById('pronouns')?.value || '';
+      // Prefer Transition section-level student/pronouns, then PLAA
+      const firstName = document.getElementById('transition-student-name')?.value?.trim()
+        || document.getElementById('firstName')?.value?.trim()
+        || '[Name]';
+      const pronouns = document.getElementById('transition-pronouns-select')?.value
+        || document.getElementById('pronouns')?.value
+        || '';
       const pronounPossessive =
         pronouns === 'Custom'
-          ? (document.getElementById('pronoun-possessive')?.value?.trim() || '[pronoun]')
+          ? (document.getElementById('transition-pro-poss')?.value?.trim() || document.getElementById('pronoun-possessive')?.value?.trim() || '[pronoun]')
           : (pronouns.split('/')?.[2] || '[pronoun]');
 
       const intro = '<h1>Transition Goals and Activities</h1>' +

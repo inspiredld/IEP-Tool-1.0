@@ -149,6 +149,24 @@
     <!-- Present Levels of Functional Performance Section (PLFP) -->
     <section class="slider-section" id="section-1">
       <h1>Present Levels of Functional Performance</h1>
+      <div class="gs-student-bar" id="plfp-student-bar">
+        <span class="gs-student-hint">Use only if information is not in PLAA</span>
+        <label for="plfp-student-name">Student:</label>
+        <input type="text" id="plfp-student-name" placeholder="Name" autocomplete="off" />
+        <label for="plfp-pronouns-select">Pronouns:</label>
+        <select id="plfp-pronouns-select">
+          <option value="">Select</option>
+          <option value="he-him">he/him</option>
+          <option value="she-her">she/her</option>
+          <option value="they-them">they/them</option>
+          <option value="other">Other</option>
+        </select>
+        <div class="gs-student-custom" id="plfp-student-custom" hidden>
+          <input type="text" class="custom-pronoun-box" id="plfp-pro-subj" placeholder="subject (e.g., xe)" />
+          <input type="text" class="custom-pronoun-box" id="plfp-pro-obj" placeholder="object (e.g., xem)" />
+          <input type="text" class="custom-pronoun-box" id="plfp-pro-poss" placeholder="poss. adj. (e.g., xir)" />
+        </div>
+      </div>
       <div class="card-section">
         <section aria-labelledby="attendance-summary-heading">
           <button 
@@ -231,6 +249,24 @@
     </section>
     <section class="slider-section" id="section-2">
       <h1>Present Levels Towards Post-Secondary Transition Goals</h1>
+      <div class="gs-student-bar" id="transition-student-bar">
+        <span class="gs-student-hint">Use only if information is not in PLAA</span>
+        <label for="transition-student-name">Student:</label>
+        <input type="text" id="transition-student-name" placeholder="Name" autocomplete="off" />
+        <label for="transition-pronouns-select">Pronouns:</label>
+        <select id="transition-pronouns-select">
+          <option value="">Select</option>
+          <option value="he-him">he/him</option>
+          <option value="she-her">she/her</option>
+          <option value="they-them">they/them</option>
+          <option value="other">Other</option>
+        </select>
+        <div class="gs-student-custom" id="transition-student-custom" hidden>
+          <input type="text" class="custom-pronoun-box" id="transition-pro-subj" placeholder="subject (e.g., xe)" />
+          <input type="text" class="custom-pronoun-box" id="transition-pro-obj" placeholder="object (e.g., xem)" />
+          <input type="text" class="custom-pronoun-box" id="transition-pro-poss" placeholder="poss. adj. (e.g., xir)" />
+        </div>
+      </div>
       <div class="card-section">
         <section aria-labelledby="transition-education-heading">
           <button 

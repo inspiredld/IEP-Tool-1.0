@@ -10,6 +10,12 @@ import { generateStakeholderInputReport } from '../Reports/reportStakeholderInpu
 // TODO: Add report imports and Quill setup as needed
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Wire student bar custom pronouns for PLFP
+  try {
+    const proSel = document.getElementById('plfp-pronouns-select');
+    const custom = document.getElementById('plfp-student-custom');
+    if (proSel && custom) proSel.addEventListener('change', () => { custom.hidden = proSel.value !== 'other'; });
+  } catch (_) {}
   // Example: Initialize Attendance Summary section
   const attendanceSection = document.getElementById('attendance-summary-content');
   if (attendanceSection) {
@@ -49,6 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const plfpEditor = document.getElementById('plfp-editor');
   if (generateBtn && plfpEditor) {
     generateBtn.addEventListener('click', () => {
+      // Pull section-level student name/pronouns if provided
+      const sectionName = document.getElementById('plfp-student-name')?.value?.trim();
+      const sectionPronouns = document.getElementById('plfp-pronouns-select')?.value || '';
+      const customSubj = document.getElementById('plfp-pro-subj')?.value?.trim();
+      const customObj = document.getElementById('plfp-pro-obj')?.value?.trim();
+      const customPoss = document.getElementById('plfp-pro-poss')?.value?.trim();
+
       const attendanceHtml = generateAttendanceSummaryReport();
       const stakeholderHtml = generateStakeholderInputReport();
       // Conditional Functional Skills output
@@ -60,7 +73,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         '<h1>Summary of Evaluation/Re-Evaluation (Functional/Behavioral/Adaptive Skills Assessments)</h1>' +
                         '<p>[Insert Assessment Information Here]</p>';
       }
-      const reportHtml = attendanceHtml + stakeholderHtml + functionalOut;
+      // Optionally prefix report with a small header using section-level name/pronouns
+      let header = '';
+      if (sectionName || sectionPronouns) {
+        const poss = sectionPronouns === 'other' ? (customPoss || '[pronoun]') : (sectionPronouns.split('-')?.[0] === 'he' ? 'his' : sectionPronouns.split('-')?.[0] === 'she' ? 'her' : 'their');
+        header = `<p><em>Student: ${sectionName || '[Name]'} • Pronouns: ${sectionPronouns || '—'}</em></p>`;
+      }
+      const reportHtml = header + attendanceHtml + stakeholderHtml + functionalOut;
 
       if (window.plfpEditorInstance) {
         window.plfpEditorInstance.setContent(reportHtml);
