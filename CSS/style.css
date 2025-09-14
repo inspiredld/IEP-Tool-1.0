@@ -1,3 +1,6 @@
+.rcg-condition-other-inline .rcg-grade-select{ margin-right:8px; }
+.rcg-condition-other-inline .rcg-or-sep{ margin:0 8px; }
+.rcg-condition-other-inline.show{ display:block !important; }
 /* ========== CSS Custom Properties ========== */
 :root {
   /* Colors */
@@ -506,6 +509,14 @@ section h2, section h1 {
   box-shadow: 0 4px 16px rgba(184, 76, 0, 0.13);
   transform: translateY(-2px) scale(1.03);
   outline: none;
+}
+
+/* Add extra space above Goals generate buttons */
+#generate-academic-goals-btn,
+#generate-functional-goals-btn,
+#generate-social-goals-btn,
+#generate-behavioral-goals-btn {
+  margin-top: 6rem;
 }
 
 /* ========== Academic Progress Boxes ========== */
@@ -1411,6 +1422,347 @@ section h2, section h1 {
   background-color: #fff;  /* White background for content area */
 }
 
+/* Goals Academic checklist card alignment */
+.goals-academic-item { display: flex; flex-direction: column; align-items: stretch; }
+.goals-academic-card { margin-left: 28px; }
+.goals-card-inner {
+  border: 1px solid #a9a9a9;
+  border-radius: 8px;
+  padding: 18px;
+  margin-top: 10px;
+  background: #ffffff; /* white background for inner layer */
+  color: inherit;
+  position: relative; /* allow absolute-positioned remove btn */
+}
+/* Header strip styling inside each goal card */
+.rcg-card .goal-title-row {
+  background: #d9dee5; /* darker grey strip */
+  border: 1px solid #c2c8d0;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin: 2px 0 14px 0; /* space below header */
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.rcg-card .goal-title-row h5,
+.rcg-card .goal-title-row select,
+.rcg-card .goal-title-row .goal-title-sep {
+  color: #151515; /* strong contrast */
+}
+/* Keep remove button inside header row and right-aligned */
+.remove-goal-btn {
+  background: #ffffff;
+  color: #b84c00;
+  border: 2px solid #b84c00;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: none;
+}
+.remove-goal-btn:hover { background: #ffe9dc; }
+.goal-quad-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 14px;
+  border-top: 1px solid #ddd;
+  padding-top: 12px;
+}
+.goal-quad-grid .cell.span-2 {
+  grid-column: 1 / -1;
+}
+.goal-quad-grid .cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  background: #fff;
+}
+.goal-quad-grid .cell label {
+  font-weight: bold;
+}
+.goal-quad-grid .cell > label,
+.goal-quad-grid .cell .cell-top > label {
+  font-size: 1.05rem;
+}
+.rcg-card .rcg-item-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+.goal-title-row { display: flex; align-items: baseline; gap: 8px; margin: 2px 0 24px 0; position: relative; }
+.goal-title-row select { font-size: 1.05rem; line-height: 1.2; padding: 2px 8px; }
+.goal-title-row .goal-title-sep { font-weight: 800; opacity: 0.7; }
+.goal-title-row .remove-goal-btn, .goal-title-row .gs-remove-goal-btn { position: absolute; right: 0; top: 0; }
+.goal-quad-grid .cell .cell-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+/* Condition row: Given ... [select] [other input inline] */
+.rcg-condition-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px; /* match Performance Criteria spacing to first row */
+  margin-left: 28px; /* indent to the right */
+}
+.rcg-condition-row > label { font-weight: bold; font-size: 0.95rem !important; }
+.rcg-behavior-row { display: flex; align-items: center; gap: 12px; margin-top: 18px; margin-left: 28px; }
+.rcg-behavior-row > label { font-weight: bold; font-size: 0.95rem !important; }
+.rcg-behavior-row .rcg-behavior-other-inline { display: none; }
+.rcg-given-label { font-weight: bold; font-size: 1.05rem !important; }
+.rcg-condition-row .rcg-condition-other-inline { display: none; }
+.rcg-condition-row .rcg-condition-other-inline.show { display: block !important; }
+/* Hide any legacy inline condition input placed in the same row */
+.rcg-condition-row > .rcg-condition-other-inline { display: none !important; }
+
+/* Reading Fluency category checklist tweaks */
+.pc-fluency-cats { padding-left: 12px; }
+.pc-fluency-cats .pc-fl-item span { font-weight: 400; font-style: italic; }
+
+/* Ensure toggle panels show when their button is expanded */
+.toggle-button[aria-expanded="true"] + .toggle-content {
+  display: block !important;
+}
+.rcg-gen-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 26px; }
+.rcg-gen-row .rcg-gen-inline { display: flex; align-items: center; gap: 8px; margin-left: 24px; }
+.rcg-gen-other { display: none; align-items: center; justify-content: center; gap: 8px; margin-top: 10px; }
+.rcg-gen-other .rcg-gen-other-input {
+  width: 60%;
+  min-width: 280px;
+  max-width: 900px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: none; /* we auto-grow */
+  font-family: var(--font-primary);
+  line-height: 1.35;
+  min-height: 34px;
+}
+.goal-quad-grid .cell textarea {
+  min-height: 72px;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+.goal-quad-grid .cell .rcg-empty {
+  min-height: 72px;
+  padding: 12px 16px; /* add inner space so text isn't flush with edges */
+  border: 1px solid #e1e1e1; /* solid, not dotted */
+  border-radius: 6px;
+  background: #fff;
+  display: flex;               /* center content inside the inner box */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: auto;            /* center the inner box vertically within the outer cell */
+  margin-bottom: auto;
+  /* revert to natural/full width */
+  width: auto;
+  margin-left: 0;
+  margin-right: 0;
+}
+/* Performance Criteria three-column layout */
+.rcg-performance-grid {
+  display: grid;
+  grid-template-columns: 0.7fr 2.3fr; /* shift Mastery Level left by narrowing Category */
+  gap: 12px;
+  align-items: stretch;
+  margin-top: 18px;
+  position: relative;
+  width: 100%;
+}
+.rcg-performance-grid .pc-col {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* allow children (e.g., mastery grid) to take full width */
+}
+.rcg-performance-grid .pc-col:first-child { justify-content: center; }
+.rcg-performance-grid .pc-col:not(:last-child) { padding-right: 12px; }
+.rcg-performance-grid .pc-col + .pc-col {
+  padding-left: 12px;
+}
+
+/* Full-height vertical separators using pseudo-elements */
+.rcg-performance-grid::before {
+  content: '';
+  position: absolute;
+  top: 2px; /* offset from top of sub box */
+  bottom: 8px; /* offset from bottom of sub box, will grow with content */
+  width: 1px;
+  background: #9e9e9e;
+  pointer-events: none;
+}
+.rcg-performance-grid::before { left: 23.333%; }
+.rcg-performance-grid .pc-col label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 2px;
+}
+.rcg-pc-dynamic {
+  margin-top: 4px;
+}
+.rcg-inline-inputs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.rcg-inline-inputs.nowrap { flex-wrap: nowrap; }
+.rcg-inline-inputs input {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+.rcg-inline-inputs textarea {
+  padding: 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  width: auto;
+  max-width: 100%;
+  min-width: 320px;
+  flex: 1 1 560px; /* stay inline next to label, grow as space allows */
+  min-height: 34px;
+  resize: none;
+  line-height: 1.35;
+}
+/* Make Category -> Other describe box ~30% narrower */
+.rcg-inline-inputs .pc-other-input {
+  min-width: 220px;
+  flex: 0 1 390px;
+}
+.rcg-prompt {
+  font-weight: bold;
+  font-style: italic;
+}
+.rcg-italic { font-style: italic; font-weight: normal; }
+.rcg-performance-grid .pc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rcg-performance-grid .pc-row label {
+  display: inline-block;
+  margin: 0;
+}
+
+/* Mastery Level subgrid */
+.rcg-mastery-grid {
+  display: grid;
+  grid-template-columns: auto 1fr 1fr auto; /* left fixed, two flexible middles, right fixed */
+  column-gap: 10px;
+  gap: 10px; /* ensure gap applies regardless of grid/flex behavior */
+  align-items: start;
+  margin-top: 18px; /* whitespace above the four parts */
+  width: 100%;
+  padding-left: 28px;
+  padding-right: 256px; /* bring Frequency/Units further from right edge */
+}
+.rcg-mastery-grid .ml-col {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center label and future inputs */
+}
+.rcg-mastery-grid .ml-col:nth-child(2),
+.rcg-mastery-grid .ml-col:nth-child(3) { justify-self: center; }
+.rcg-mastery-grid .ml-col:nth-child(2) { margin-right: -6px; margin-left: 36px; }
+.rcg-mastery-grid .ml-col:nth-child(3) { margin-left: -12px; }
+.rcg-mastery-grid .ml-col:last-child {
+  justify-self: end; /* push Units to the far right */
+  margin-left: 0;
+  margin-right: -200px; /* nudge Units a bit further right */
+}
+.rcg-mastery-grid .ml-col label {
+  display: block;
+  margin-bottom: 6px;
+  text-align: center;
+}
+.rcg-mastery-grid .ml-slot {
+  min-height: 6px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center inputs under headings */
+  gap: 10px;
+}
+/* Row to place label + select on same line */
+.rcg-mastery-grid .ml-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.rcg-mastery-grid .ml-top label { white-space: nowrap; }
+/* Force compact width for the # or Ratio dropdown */
+.ml-count-select { width: 140px !important; }
+/* Inline row for preposition other input */
+.ml-preposition-other {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: auto;
+  margin-top: 16px; /* extra whitespace below the dropdown */
+}
+
+/* Generic inline row used under mastery sub-sections */
+.ml-inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Frequency 'Other' row */
+.ml-frequency-other {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* Units 'Other' row */
+.ml-units-other {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+}
+@media (max-width: 900px) {
+  .rcg-performance-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 800px) {
+  .goal-quad-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reading Comprehension Goals layout tweaks */
+.rcg-card .rcg-item-title {
+  margin-top: 2px;
+  margin-bottom: 16px;
+}
+.rcg-actions {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+  margin-left: 18px; /* align with inner card padding */
+}
+.rcg-list .rcg-item { margin-bottom: 28px; }
+.rcg-list .rcg-item:last-child { margin-bottom: 0; }
+
 .collapsible-section {
   margin-bottom: 1.5rem;
   border: none;
@@ -1495,6 +1847,29 @@ section h2, section h1 {
 }
 .tab-item[data-section="2"] {
   background: #2f4c6e;
+}
+.tab-item[data-section="3"] {
+  background: #3C5E87;
+}
+.tab-item[data-section="3"]::after {
+  content: "In Progress";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #d32f2f;
+  color: #fff;
+  padding: 2px 8px;
+  font-size: 0.75em;
+  line-height: 1.4;
+  border-radius: 999px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 3;
+}
+.tab-item[data-section="4"] {
+  background: #3C5E87;
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
 }
@@ -1575,6 +1950,28 @@ section h2, section h1 {
   flex-shrink: 0;
   overflow-y: auto;
 }
+.gs-student-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border: 1px solid #e1e1e1;
+  border-radius: 6px;
+  background: #fafafa;
+  margin: -6px 0 12px 0;
+}
+.gs-student-bar input[type="text"],
+.gs-student-bar select {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+.gs-student-bar label { font-weight: 700; }
+.gs-student-bar label[for="gs-pronouns-select"] { margin-left: 18px; }
+.gs-student-hint { color: #666; font-style: italic; font-size: 0.9rem; margin-right: 18px; }
+.gs-student-custom { display: inline-flex; gap: 8px; }
 .slider-section > h1 {
   color: #b84c00 !important;
   font-size: 2.3rem !important;
@@ -1595,6 +1992,8 @@ section h2, section h1 {
     max-width: 100vw;
   }
 }
+
+/* Goals section uses default background; tab color customized elsewhere */
 
 .card-section {
   background: #fff;
@@ -1644,6 +2043,87 @@ section h2, section h1 {
   background: #fafbfc;
   padding: 18px 20px;
   margin-bottom: 28px;
+}
+.gs-goal-card {
+  background: #FAF8F7 !important; /* inner color */
+  border: 3px solid #bbb !important; /* thicker outline */
+}
+
+/* Add space below the title row in Goals & SDIs card */
+.gs-goal-card .goal-title-row { margin-bottom: 24px; }
+
+/* Goals & SDIs card title styling */
+.gs-goal-card .gs-item-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+.gs-goal-card .goal-title-sep {
+  font-weight: 800;
+  font-size: 1.35rem;
+}
+.gs-card-list { display: flex; flex-direction: column; gap: 18px; }
+/* Remove bottom margin on cards inside GS list so gap controls spacing */
+.gs-card-list .goal-card { margin-bottom: 0; }
+.gs-actions { margin-left: 0; margin-top: 8px; }
+
+/* Goals & SDIs: tighten label to RTE like other outputs */
+.gs-goal-text-label { display: block; margin-top: 2px; margin-bottom: 6px !important; }
+/* Emphasize and center the Goal Text label, add a separator above the RTE */
+.gs-goal-text {
+  background: #f0e6e0; /* warm fill similar to divider color */
+  border: 1px solid #e6d6d0;
+  border-radius: 8px;
+  padding: 12px 12px 28px; /* extend area a bit further */
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column; /* stack title and output vertically */
+  align-items: center; /* center contents horizontally */
+  gap: 8px;
+}
+.gs-goal-text.gs-inline { height: 100%; }
+.gs-goal-text .gs-goal-text-label { display: none; }
+.gs-goal-text .gs-goal-text-title {
+  display: block;
+  width: 100%;
+  text-align: center !important;
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+  color: #0a2b5c;
+  letter-spacing: 0.01em;
+  margin-bottom: 0;
+}
+.gs-rte-inline { width: 70%; min-width: 0; min-height: 0 !important; align-self: center; margin-top: 2px !important; }
+.gs-goal-textarea {
+  width: 100%;
+  height: 72px; /* reduced height */
+  border: none; /* remove inner box border */
+  outline: none;
+  resize: vertical; /* still allow grow if needed */
+  padding: 1rem 1.25rem; /* match other outputs' inner spacing */
+  box-sizing: border-box;
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  background: transparent; /* use wrapper's white background */
+  text-align: center;
+}
+.goal-textarea { text-align: center; }
+.gs-generate-row { display: flex; justify-content: center; margin-top: 14px; }
+.gs-generate-row .generate-report-btn { margin: 0; }
+.gs-goal-text.gs-inline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;          /* center children */
+  width: fit-content;           /* shrink to its contents */
+  margin-left: auto;
+  margin-right: auto;           /* center within the row */
+}
+.gs-goal-text.gs-inline .gs-rte-inline { width: 720px; }
+
+/* Center the MAG panel within its row without changing size */
+.goal-quad-grid > .cell:last-child {
+  grid-column: 1 / -1;          /* span across the full grid width */
+  display: flex;
+  justify-content: center;      /* center contents within the full row */
 }
 .goal-card .goal-header {
   display: flex;
@@ -1720,3 +2200,46 @@ section h2, section h1 {
   margin-bottom: 0.5rem !important;
   color: #000000 !important;
 }
+
+/* Ensure inner layer of each Goals card is white */
+.goals-academic-card .goals-card-inner.rcg-card { background: #ffffff !important; }
+
+/* Remove outer outline around Goals → Goals content */
+#section-3 #goals-academic.toggle-content { border: none !important; border-left: none !important; box-shadow: none !important; }
+#section-3 #goals-academic.toggle-content { border-radius: 0 !important; }
+
+/* Remove outer container border for the Goals list; keep borders on inner rcg-card */
+.goals-academic-card > .goals-card-inner { background: #f3f5f7 !important; border: none !important; box-shadow: none !important; }
+
+/* Make the Goals section content area light grey while inner cells remain white */
+#goals-academic .section-content.goals-academic-card { background: #f3f5f7 !important; }
+
+/* Goals main container background (stay white) */
+#section-3 .toggle-content { background: #ffffff !important; }
+#goals-academic { background: #ffffff !important; }
+/* Goals inner card area background (light grey) */
+#section-3 #goals-academic .section-content.goals-academic-card { background: #f3f5f7 !important; }
+
+/* Highly specific overrides for Goals section backgrounds */
+.slider-section#section-3 > .card-section > section > #goals-academic.toggle-content { background: #ffffff !important; }
+.slider-section#section-3 #goals-academic .section-content.goals-academic-card { background: #f3f5f7 !important; }
+
+/* Goals tab: correct background mapping */
+#section-3 #goals-academic.toggle-content { background: #ffffff !important; }
+/* make the inner rounded panel (inside the outlined card) light grey */
+#section-3 #goals-academic .section-content.goals-academic-card { background: #ffffff !important; }
+#section-3 #goals-academic .section-content.goals-academic-card > .goals-card-inner {
+  background: #ffffff !important;
+  border: 1px solid #bbb !important;
+}
+#section-3 #goals-academic .section-content.goals-academic-card .goals-card-inner.rcg-card {
+  background: #f3f5f7 !important;
+}
+
+/* Strong override: mid container white */
+.slider-section#section-3 #goals-academic .section-content.goals-academic-card > .goals-card-inner { background: #ffffff !important; }
+
+/* Ensure only inner rcg-card appears grey; all wrappers remain white/transparent */
+#section-3 #goals-academic .section-content.goals-academic-card > .goals-card-inner { background: #ffffff !important; }
+#section-3 #goals-academic .section-content.goals-academic-card > .goals-card-inner .rcg-list,
+#section-3 #goals-academic .section-content.goals-academic-card > .goals-card-inner .rcg-item { background: transparent !important; }

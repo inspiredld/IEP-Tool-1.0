@@ -6,7 +6,7 @@
   <meta name="description" content="IEP Tool for managing Present Levels of Academic Achievement" />
   
   <title>IEP Tool 3.0</title>
-  <link rel="stylesheet" href="CSS/style.css" media="all" />
+  <link rel="stylesheet" href="CSS/style.css?v=goals-bg-2" media="all" />
   
   <!-- Add Quill local includes -->
   <link href="JS/PLAA/libs/quill.snow.css" rel="stylesheet">
@@ -31,6 +31,8 @@
     <div class="tab-item active" data-section="0">Present Levels of Academic Achievement</div>
     <div class="tab-item" data-section="1">Present Levels of Functional Performance</div>
     <div class="tab-item" data-section="2">Present Levels Towards Post-Secondary Transition Goals</div>
+    <div class="tab-item" data-section="3">Goals &amp; SDIs</div>
+    <!-- Removed Goals & SDIs tab per request -->
   </nav>
   <div class="slider-container">
     <section class="slider-section" id="section-0">
@@ -143,6 +145,7 @@
         <div class="nav-arrow-horizontal nav-arrow-right" id="arrow-right">&#8594;</div>
       </div>
     </section>
+    
     <!-- Present Levels of Functional Performance Section (PLFP) -->
     <section class="slider-section" id="section-1">
       <h1>Present Levels of Functional Performance</h1>
@@ -325,17 +328,104 @@
         <div class="nav-arrow-horizontal nav-arrow-right" id="arrow-right">&#8594;</div>
       </div>
     </section>
+    <section class="slider-section" id="section-4">
+      <h1>Goals &amp; SDIs</h1>
+      <div class="gs-student-bar" id="gs-student-bar">
+        <span class="gs-student-hint">Use only if information is not in PLAA</span>
+        <label for="gs-student-name">Student:</label>
+        <input type="text" id="gs-student-name" placeholder="Name" autocomplete="off" />
+        <label for="gs-pronouns-select">Pronouns:</label>
+        <select id="gs-pronouns-select">
+          <option value="">Select</option>
+          <option value="he-him">he/him</option>
+          <option value="she-her">she/her</option>
+          <option value="they-them">they/them</option>
+          <option value="other">Other</option>
+        </select>
+        <div class="gs-student-custom" id="gs-student-custom" hidden>
+          <input type="text" class="custom-pronoun-box" id="gs-pro-subj" placeholder="subject (e.g., xe)" />
+          <input type="text" class="custom-pronoun-box" id="gs-pro-obj" placeholder="object (e.g., xem)" />
+          <input type="text" class="custom-pronoun-box" id="gs-pro-poss" placeholder="poss. adj. (e.g., xir)" />
+        </div>
+      </div>
+      <div class="card-section">
+        <section aria-labelledby="gs-goals-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="gs-goals-content"
+            id="gs-goals-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>Goals</span>
+          </button>
+          <div 
+            id="gs-goals-content" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="gs-goals-heading"
+            hidden>
+            <h2 id="gs-goals-heading" class="visually-hidden">Goals Section</h2>
+            <div id="gs-card-list" class="gs-card-list">
+              <div class="goal-card gs-goal-card">
+                <div class="goal-title-row"><h5 class="gs-item-title">Goal 1</h5><span class="goal-title-sep">-</span>
+                  <select class="gs-goal-type-select" aria-label="Goal Type" style="min-width: 220px;">
+                    <option value="">Select Goal Type</option>
+                    <option value="reading-comprehension">Reading Comprehension</option>
+                    <option value="reading-fluency">Reading Fluency</option>
+                    <option value="writing">Writing</option>
+                    <option value="math">Math</option>
+                    <option value="executive-functioning">Executive Functioning</option>
+                    <option value="social-skills">Social Skills</option>
+                    <option value="behavior">Behavior</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="gs-goal-type-content"></div>
+              </div>
+            </div>
+            <div class="gs-actions"><button type="button" id="gs-add-goal-btn" class="sdi-btn">+Goal</button></div>
+          </div>
+        </section>
+        <section aria-labelledby="gs-sdis-heading">
+          <button 
+            class="toggle-button" 
+            aria-expanded="false"
+            aria-controls="gs-sdis-content"
+            id="gs-sdis-toggle">
+            <span class="toggle-icon" aria-hidden="true">+</span>
+            <span>SDIs</span>
+          </button>
+          <div 
+            id="gs-sdis-content" 
+            class="toggle-content"
+            role="region"
+            aria-labelledby="gs-sdis-heading"
+            hidden>
+            <h2 id="gs-sdis-heading" class="visually-hidden">SDIs Section</h2>
+            <div style="font-style: italic; color:#666;">SDIs configuration will appear here.</div>
+          </div>
+        </section>
+      </div>
+      <div class="nav-arrows-row">
+        <div class="nav-arrow-horizontal nav-arrow-left" id="arrow-left">&#8592;</div>
+        <div class="nav-arrow-horizontal nav-arrow-right" id="arrow-right">&#8594;</div>
+      </div>
+    </section>
   </div>
   <script src="JS/PLAA/Main/main.js" defer></script>
   <script type="module" src="JS/PLAA/Main/plaaMain.js"></script>
   <script type="module" src="JS/PLFP/Main/plfpMain.js"></script>
- <script type="module" src="JS/Transition/Main/transitionMain.js"></script>
+  <script type="module" src="JS/Transition/Main/transitionMain.js"></script>
+  <!-- Swap to Goals & SDIs renderer for Goals tab -->
+  <script type="module" src="JS/GoalsSDIs/Main/goalsSdisMain.js?v=rc-grade-ui-3"></script>
   <script>
     // Tab and slider navigation logic with global in-memory activePage
     window.activePage = 0;
     document.addEventListener('DOMContentLoaded', function() {
       const sliderContainer = document.querySelector('.slider-container');
       const sections = document.querySelectorAll('.slider-section');
+      // Make slider width dynamic to support additional sections
+      if (sliderContainer) sliderContainer.style.width = `${sections.length * 100}vw`;
       const tabItems = document.querySelectorAll('.tab-item');
 
       function updateSlider() {
@@ -473,6 +563,11 @@
       document.getElementById('copy-plaa')?.addEventListener('click', (e) => copyFromEditor(window.plaaEditorInstance, 'plaa-editor', e.currentTarget));
       document.getElementById('copy-plfp')?.addEventListener('click', (e) => copyFromEditor(window.plfpEditorInstance, 'plfp-editor', e.currentTarget));
       document.getElementById('copy-transition')?.addEventListener('click', (e) => copyFromEditor(window.transitionEditorInstance, 'transition-editor', e.currentTarget));
+      document.getElementById('copy-academic-goals')?.addEventListener('click', (e) => copyFromEditor(window.academicGoalsEditorInstance, 'academic-goals-editor', e.currentTarget));
+      document.getElementById('copy-functional-goals')?.addEventListener('click', (e) => copyFromEditor(window.functionalGoalsEditorInstance, 'functional-goals-editor', e.currentTarget));
+      document.getElementById('copy-social-goals')?.addEventListener('click', (e) => copyFromEditor(window.socialGoalsEditorInstance, 'social-goals-editor', e.currentTarget));
+      document.getElementById('copy-behavioral-goals')?.addEventListener('click', (e) => copyFromEditor(window.behavioralGoalsEditorInstance, 'behavioral-goals-editor', e.currentTarget));
+      // Goals: handled in dedicated module
 
       // Initial state
       updateSlider();

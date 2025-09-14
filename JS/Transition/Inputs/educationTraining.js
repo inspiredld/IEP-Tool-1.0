@@ -57,7 +57,7 @@ export function createTransitionEducationForm(container) {
         <div class="collapsible-section">
           <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
             <input type="checkbox" class="edu-updated-toggle" data-target="eduCiteCard">
-            O*NET Interest Profiler
+            CITE Learning Styles
           </label>
           <div id="eduCiteCard" class="section-content" style="display: none;">
             <div style="border: 1px solid #bbb; border-radius: 8px; padding: 18px; margin-top: 10px; background: #fafbfc;">

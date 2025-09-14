@@ -37,7 +37,7 @@ export function generateTransitionEducationReport(returnOnly = false) {
     addedUpdatedSection = true;
   }
 
-  // === Updated Information: O*NET Interest Profiler ===
+  // === Updated Information: CITE Learning Styles ===
   const citeChecked = document.querySelector('input.edu-updated-toggle[data-target="eduCiteCard"]')?.checked;
   if (citeChecked) {
     const dateRaw = document.getElementById('edu-cite-date')?.value || '';
@@ -45,8 +45,9 @@ export function generateTransitionEducationReport(returnOnly = false) {
     const summaryHtmlRaw = document.querySelector('#edu-cite-summary-quill .ql-editor')?.innerHTML?.trim();
     const summaryHtml = summaryHtmlRaw && summaryHtmlRaw !== '<p><br></p>' ? summaryHtmlRaw : '';
     html += addedUpdatedSection ? '<p><br></p><p><br></p>' : '<p><br></p>';
-    html += '<h4>O*NET Interest Profiler</h4>';
-    html += `<p>${firstName} completed the O*NET Interest Profiler on ${dateFormatted}. This assessment helps students identify their career interests by measuring preferences across six domains: Realistic, Investigative, Artistic, Social, Enterprising, and Conventional. The results provide insight into potential career pathways that align with the student’s interests and can be used to guide transition and career planning. The results are as follows:</p>`;
+    html += '<h4>CITE Learning Styles</h4>';
+    const namePossessive = firstName ? (firstName.endsWith('s') ? `${firstName}'` : `${firstName}'s`) : "[Name]'s";
+    html += `<p>The C.I.T.E. Learning Styles Inventory (Center for Innovative Teaching Experiences) identifies a student’s preferred ways of learning by assessing strengths across auditory, visual, and tactile/kinesthetic modalities, as well as social/individual preferences. Results help teachers understand how the student best takes in and processes information, which can guide instructional strategies, classroom accommodations, and SDIs to increase engagement and access to the curriculum. A summary of ${namePossessive} results are as follows:</p>`;
     if (summaryHtml) html += summaryHtml;
     addedUpdatedSection = true;
   }

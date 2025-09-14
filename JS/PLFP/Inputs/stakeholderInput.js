@@ -532,6 +532,254 @@ export function createStakeholderInputForm(container) {
       });
     }
   }, 0);
+  // Initialize General Education Teacher (+Teacher) after markup exists
+setTimeout(() => {
+  const container = document.getElementById('gened-teacher-inputs-container');
+  const addBtn = document.getElementById('add-gened-teacher-btn');
+  function initQuillForBlock(block) {
+      const quillDiv = block?.querySelector('.gened-teacher-input-quill');
+    if (quillDiv && !quillDiv._quill && window.Quill) {
+      const toolbarOptions = [
+        [{ font: [] }, { size: [] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ color: [] }, { background: [] }],
+        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+        ['link'],
+        ['clean']
+      ];
+      const quill = new Quill(quillDiv, {
+        modules: { toolbar: toolbarOptions },
+        theme: 'snow',
+        placeholder: 'Add teacher input here...'
+      });
+      quillDiv._quill = quill;
+    }
+  }
+    if (container) initQuillForBlock(container.querySelector('.gened-teacher-input-block'));
+    if (addBtn && container) {
+  addBtn.onclick = function() {
+    const block = document.createElement('div');
+    block.className = 'gened-teacher-input-block';
+    block.innerHTML = `
+      <div style="border: 1px solid #bbb; border-radius: 8px; padding: 64px 18px 32px 18px; margin-top: 10px; background: #fafbfc; position: relative;">
+        <button type='button' class='remove-gened-teacher-btn remove-sdi-btn' style='position: absolute; top: 12px; right: 12px; min-width: 90px; padding: 4px 18px;'>-Teacher</button>
+        <div style="display: flex; align-items: center; gap: 48px; margin-bottom: 12px; margin-top: 10px;">
+          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 120px;">
+            Title:
+            <select class="gened-teacher-input-title" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 110px; margin-right: 24px;">
+              <option value="">choose one</option>
+              <option value="Dr.">Dr.</option>
+              <option value="Mr.">Mr.</option>
+              <option value="Ms.">Ms.</option>
+            </select>
+          </label>
+          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 160px;">
+            First Name:
+            <input type="text" class="gened-teacher-input-first" placeholder="first name" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 140px; margin-right: 24px;">
+          </label>
+          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 160px;">
+            Last Name:
+            <input type="text" class="gened-teacher-input-last" placeholder="last name" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 140px; margin-right: 24px;">
+          </label>
+          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 180px;">
+            Subject Area:
+            <input type="text" class="gened-teacher-input-subject" placeholder="add subject" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 120px; margin-right: 24px;">
+          </label>
+          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 180px;">
+            Date of Input:
+            <input type="date" class="gened-teacher-input-date" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 120px; margin-right: 24px;">
+          </label>
+        </div>
+        <div style="height: 24px;"></div>
+        <div style="display: flex; align-items: flex-start; gap: 16px;">
+          <label style="font-weight: bold; min-width: 140px; margin-top: 8px;">Teacher Input:</label>
+          <div style="flex: 1; min-width: 600px; max-width: 1400px; width: 100%;">
+            <div class="gened-teacher-input-quill" style="min-height: 96px; background: #fff; border-radius: 4px; border: 1px solid #ccc; width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(block);
+    initQuillForBlock(block);
+        block.querySelector('.remove-gened-teacher-btn').onclick = function() { block.remove(); };
+    };
+    }
+}, 0);
+
+  // Initialize Special Education Teacher (+Teacher) after markup exists
+setTimeout(() => {
+  const container = document.getElementById('speced-teacher-inputs-container');
+  const addBtn = document.getElementById('add-speced-teacher-btn');
+  function initQuillForBlock(block) {
+      const quillDiv = block?.querySelector('.speced-teacher-input-quill');
+    if (quillDiv && !quillDiv._quill && window.Quill) {
+      const toolbarOptions = [
+        [{ font: [] }, { size: [] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ color: [] }, { background: [] }],
+        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+        ['link'],
+        ['clean']
+      ];
+      const quill = new Quill(quillDiv, {
+        modules: { toolbar: toolbarOptions },
+        theme: 'snow',
+        placeholder: 'Add teacher input here...'
+      });
+      quillDiv._quill = quill;
+    }
+  }
+    if (container) initQuillForBlock(container.querySelector('.speced-teacher-input-block'));
+    if (addBtn && container) {
+  addBtn.onclick = function() {
+    const block = document.createElement('div');
+    block.className = 'speced-teacher-input-block';
+    block.innerHTML = `
+      <div style="border: 1px solid #bbb; border-radius: 8px; padding: 48px 18px 32px 18px; margin-top: 10px; background: #fafbfc; position: relative;">
+        <button type='button' class='remove-speced-teacher-btn remove-sdi-btn' style='position: absolute; top: 12px; right: 12px; min-width: 90px; padding: 4px 18px;'>-Teacher</button>
+        <div style=\"display: flex; align-items: center; gap: 64px; margin-bottom: 12px; margin-top: 10px; flex-wrap: wrap;\">
+          <label style=\"font-weight: bold; display: flex; flex-direction: column; gap: 6px; min-width: 160px;\">
+            <span>Title:</span>
+            <select class=\"speced-teacher-input-title\" style=\"padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 140px;\">
+              <option value=\"\">choose one</option>
+              <option value=\"Dr.\">Dr.</option>
+              <option value=\"Mr.\">Mr.</option>
+              <option value=\"Ms.\">Ms.</option>
+            </select>
+          </label>
+          <label style=\"font-weight: bold; display: flex; flex-direction: column; gap: 6px; min-width: 200px;\">
+            <span>First Name:</span>
+            <input type=\"text\" class=\"speced-teacher-input-first\" placeholder=\"first name\" style=\"padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px;\">
+          </label>
+          <label style=\"font-weight: bold; display: flex; flex-direction: column; gap: 6px; min-width: 200px;\">
+            <span>Last Name:</span>
+            <input type=\"text\" class=\"speced-teacher-input-last\" placeholder=\"last name\" style=\"padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px;\">
+          </label>
+          <label style=\"font-weight: bold; display: flex; flex-direction: column; gap: 6px; min-width: 220px;\">
+            <span>Subject Area:</span>
+            <input type=\"text\" class=\"speced-teacher-input-subject\" placeholder=\"add subject\" style=\"padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 200px;\">
+          </label>
+          <label style=\"font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 120px; margin-right: 24px;\">
+            Co-Teacher?
+            <input type=\"checkbox\" class=\"speced-teacher-co-teacher\" style=\"margin-left: 8px;\">
+          </label>
+          <label style=\"font-weight: bold; display: flex; flex-direction: column; gap: 6px; min-width: 200px;\">
+            <span>Date of Input:</span>
+            <input type=\"date\" class=\"speced-teacher-input-date\" style=\"padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px;\">
+          </label>
+        </div>
+        <div style="height: 24px;"></div>
+        <div style="display: flex; align-items: flex-start; gap: 16px;">
+          <label style="font-weight: bold; min-width: 140px; margin-top: 8px;">Teacher Input:</label>
+          <div style="flex: 1; min-width: 600px; max-width: 1400px; width: 100%;">
+            <div class="speced-teacher-input-quill" style="min-height: 96px; background: #fff; border-radius: 4px; border: 1px solid #ccc; width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(block);
+    initQuillForBlock(block);
+        block.querySelector('.remove-speced-teacher-btn').onclick = function() { block.remove(); };
+    };
+    }
+}, 0);
+
+  // Initialize Related Service Provider (+Provider) after markup exists
+setTimeout(() => {
+  const container = document.getElementById('provider-inputs-container');
+  const addBtn = document.getElementById('add-provider-btn');
+  function initQuillForBlock(block) {
+      const quillDiv = block?.querySelector('.provider-input-quill');
+    if (quillDiv && !quillDiv._quill && window.Quill) {
+      const toolbarOptions = [
+        [{ font: [] }, { size: [] }],
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ color: [] }, { background: [] }],
+        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
+        ['link'],
+        ['clean']
+      ];
+      const quill = new Quill(quillDiv, {
+        modules: { toolbar: toolbarOptions },
+        theme: 'snow',
+        placeholder: 'Add provider input here...'
+      });
+      quillDiv._quill = quill;
+    }
+      const serviceDropdown = block?.querySelector('.provider-input-service');
+    if (serviceDropdown) {
+      const descRow = block.querySelector('.provider-service-desc-row');
+      serviceDropdown.addEventListener('change', function() {
+        const isOther = serviceDropdown.value === 'Other';
+        if (descRow) descRow.style.display = isOther ? 'block' : 'none';
+        if (!isOther && descRow) {
+          const input = descRow.querySelector('.provider-input-service-desc');
+          if (input) input.value = '';
+        }
+      });
+    }
+  }
+    if (container) initQuillForBlock(container.querySelector('.provider-input-block'));
+    if (container && addBtn) {
+  addBtn.onclick = function() {
+    const block = document.createElement('div');
+    block.className = 'provider-input-block';
+    block.innerHTML = `
+      <div style="border: 1px solid #bbb; border-radius: 8px; padding: 64px 18px 32px 18px; margin-top: 10px; background: #fafbfc; position: relative;">
+        <button type='button' class='remove-provider-btn remove-sdi-btn' style='position: absolute; top: 12px; right: 12px; min-width: 90px; padding: 4px 18px;'>-Provider</button>
+        <div style="display: flex; align-items: center; gap: 64px; margin-bottom: 12px; margin-top: 10px; flex-wrap: nowrap;">
+          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 280px;">
+            Service Provided:
+            <select class="provider-input-service" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 140px; margin-right: 24px;">
+              <option value="">Choose One</option>
+              <option value="SLP">SLP</option>
+              <option value="OT">OT</option>
+              <option value="PT">PT</option>
+              <option value="AS">AS</option>
+              <option value="ES">ES</option>
+              <option value="Other">Other</option>
+            </select>
+          </label>
+          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 180px;">
+            Title:
+            <select class="provider-input-title" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 120px; margin-right: 24px;">
+              <option value="">choose one</option>
+              <option value="Dr.">Dr.</option>
+              <option value="Mr.">Mr.</option>
+              <option value="Ms.">Ms.</option>
+            </select>
+          </label>
+          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 200px;">
+            First Name:
+            <input type="text" class="provider-input-first" placeholder="first name" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px; margin-right: 24px;">
+          </label>
+          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 200px;">
+            Last Name:
+            <input type="text" class="provider-input-last" placeholder="last name" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px; margin-right: 24px;">
+          </label>
+          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 200px;">
+            Date of Input:
+            <input type="date" class="provider-input-date" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px; margin-right: 24px;">
+          </label>
+        </div>
+        <div class="provider-service-desc-row" style="display:none; margin-top: 6px;">
+          <input type="text" class="provider-input-service-desc" placeholder="describe" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; width: 240px; max-width: 240px;">
+        </div>
+        <div style="height: 24px;"></div>
+        <div style="display: flex; align-items: flex-start; gap: 16px;">
+          <label style="font-weight: bold; min-width: 140px; margin-top: 8px;">Provider Input:</label>
+          <div style="flex: 1; min-width: 600px; max-width: 1400px; width: 100%;">
+            <div class="provider-input-quill" style="min-height: 96px; background: #fff; border-radius: 4px; border: 1px solid #ccc; width: 100%;"></div>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(block);
+    initQuillForBlock(block);
+        block.querySelector('.remove-provider-btn').onclick = function() { block.remove(); };
+      };
+    }
+  }, 0);
   // Initialize Quill and add/remove logic for Other Stakeholder blocks
   setTimeout(() => {
     function initOtherQuill(block) {
@@ -603,7 +851,7 @@ export function createStakeholderInputForm(container) {
         if (removeBtn) removeBtn.onclick = () => block.remove();
       };
     }
-  }, 0);
+}, 0); 
   // Show/hide logic for nurse diagnosis description
   setTimeout(() => {
     const diagnosisDropdown = container.querySelector('.nurse-input-diagnosis-dropdown');
@@ -758,259 +1006,3 @@ export function createStakeholderInputForm(container) {
   }, 0);
   // Removed stray single-element Quill init for General Ed teacher input to avoid invalid container errors
 }
-
-// Add JS logic after Quill initializations:
-setTimeout(() => {
-  const container = document.getElementById('gened-teacher-inputs-container');
-  const addBtn = document.getElementById('add-gened-teacher-btn');
-  let teacherCount = 1;
-  function initQuillForBlock(block) {
-    const quillDiv = block.querySelector('.gened-teacher-input-quill');
-    if (quillDiv && !quillDiv._quill && window.Quill) {
-      const toolbarOptions = [
-        [{ font: [] }, { size: [] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{ color: [] }, { background: [] }],
-        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-        ['link'],
-        ['clean']
-      ];
-      const quill = new Quill(quillDiv, {
-        modules: { toolbar: toolbarOptions },
-        theme: 'snow',
-        placeholder: 'Add teacher input here...'
-      });
-      quillDiv._quill = quill;
-    }
-  }
-  // Initialize Quill for the first block
-  initQuillForBlock(container.querySelector('.gened-teacher-input-block'));
-  addBtn.onclick = function() {
-    teacherCount++;
-    const block = document.createElement('div');
-    block.className = 'gened-teacher-input-block';
-    block.innerHTML = `
-      <div style="border: 1px solid #bbb; border-radius: 8px; padding: 64px 18px 32px 18px; margin-top: 10px; background: #fafbfc; position: relative;">
-        <button type='button' class='remove-gened-teacher-btn remove-sdi-btn' style='position: absolute; top: 12px; right: 12px; min-width: 90px; padding: 4px 18px;'>-Teacher</button>
-        <div style="display: flex; align-items: center; gap: 48px; margin-bottom: 12px; margin-top: 10px;">
-          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 120px;">
-            Title:
-            <select class="gened-teacher-input-title" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 110px; margin-right: 24px;">
-              <option value="">choose one</option>
-              <option value="Dr.">Dr.</option>
-              <option value="Mr.">Mr.</option>
-              <option value="Ms.">Ms.</option>
-            </select>
-          </label>
-          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 160px;">
-            First Name:
-            <input type="text" class="gened-teacher-input-first" placeholder="first name" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 140px; margin-right: 24px;">
-          </label>
-          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 160px;">
-            Last Name:
-            <input type="text" class="gened-teacher-input-last" placeholder="last name" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 140px; margin-right: 24px;">
-          </label>
-          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 180px;">
-            Subject Area:
-            <input type="text" class="gened-teacher-input-subject" placeholder="add subject" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 120px; margin-right: 24px;">
-          </label>
-          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 180px;">
-            Date of Input:
-            <input type="date" class="gened-teacher-input-date" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 120px; margin-right: 24px;">
-          </label>
-        </div>
-        <div style="height: 24px;"></div>
-        <div style="display: flex; align-items: flex-start; gap: 16px;">
-          <label style="font-weight: bold; min-width: 140px; margin-top: 8px;">Teacher Input:</label>
-          <div style="flex: 1; min-width: 600px; max-width: 1400px; width: 100%;">
-            <div class="gened-teacher-input-quill" style="min-height: 96px; background: #fff; border-radius: 4px; border: 1px solid #ccc; width: 100%;"></div>
-          </div>
-        </div>
-      </div>
-    `;
-    container.appendChild(block);
-    initQuillForBlock(block);
-    block.querySelector('.remove-gened-teacher-btn').onclick = function() {
-      block.remove();
-    };
-  };
-}, 0);
-
-setTimeout(() => {
-  const container = document.getElementById('speced-teacher-inputs-container');
-  const addBtn = document.getElementById('add-speced-teacher-btn');
-  function initQuillForBlock(block) {
-    const quillDiv = block.querySelector('.speced-teacher-input-quill');
-    if (quillDiv && !quillDiv._quill && window.Quill) {
-      const toolbarOptions = [
-        [{ font: [] }, { size: [] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{ color: [] }, { background: [] }],
-        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-        ['link'],
-        ['clean']
-      ];
-      const quill = new Quill(quillDiv, {
-        modules: { toolbar: toolbarOptions },
-        theme: 'snow',
-        placeholder: 'Add teacher input here...'
-      });
-      quillDiv._quill = quill;
-    }
-  }
-  // Initialize Quill for the first block
-  initQuillForBlock(container.querySelector('.speced-teacher-input-block'));
-  addBtn.onclick = function() {
-    const block = document.createElement('div');
-    block.className = 'speced-teacher-input-block';
-    block.innerHTML = `
-      <div style="border: 1px solid #bbb; border-radius: 8px; padding: 48px 18px 32px 18px; margin-top: 10px; background: #fafbfc; position: relative;">
-        <button type='button' class='remove-speced-teacher-btn remove-sdi-btn' style='position: absolute; top: 12px; right: 12px; min-width: 90px; padding: 4px 18px;'>-Teacher</button>
-        <div style=\"display: flex; align-items: center; gap: 64px; margin-bottom: 12px; margin-top: 10px; flex-wrap: wrap;\">
-          <label style=\"font-weight: bold; display: flex; flex-direction: column; gap: 6px; min-width: 160px;\">
-            <span>Title:</span>
-            <select class=\"speced-teacher-input-title\" style=\"padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 140px;\">
-              <option value=\"\">choose one</option>
-              <option value=\"Dr.\">Dr.</option>
-              <option value=\"Mr.\">Mr.</option>
-              <option value=\"Ms.\">Ms.</option>
-            </select>
-          </label>
-          <label style=\"font-weight: bold; display: flex; flex-direction: column; gap: 6px; min-width: 200px;\">
-            <span>First Name:</span>
-            <input type=\"text\" class=\"speced-teacher-input-first\" placeholder=\"first name\" style=\"padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px;\">
-          </label>
-          <label style=\"font-weight: bold; display: flex; flex-direction: column; gap: 6px; min-width: 200px;\">
-            <span>Last Name:</span>
-            <input type=\"text\" class=\"speced-teacher-input-last\" placeholder=\"last name\" style=\"padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px;\">
-          </label>
-          <label style=\"font-weight: bold; display: flex; flex-direction: column; gap: 6px; min-width: 220px;\">
-            <span>Subject Area:</span>
-            <input type=\"text\" class=\"speced-teacher-input-subject\" placeholder=\"add subject\" style=\"padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 200px;\">
-          </label>
-          <label style=\"font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 120px; margin-right: 24px;\">
-            Co-Teacher?
-            <input type=\"checkbox\" class=\"speced-teacher-co-teacher\" style=\"margin-left: 8px;\">
-          </label>
-          <label style=\"font-weight: bold; display: flex; flex-direction: column; gap: 6px; min-width: 200px;\">
-            <span>Date of Input:</span>
-            <input type=\"date\" class=\"speced-teacher-input-date\" style=\"padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px;\">
-          </label>
-        </div>
-        <div style="height: 24px;"></div>
-        <div style="display: flex; align-items: flex-start; gap: 16px;">
-          <label style="font-weight: bold; min-width: 140px; margin-top: 8px;">Teacher Input:</label>
-          <div style="flex: 1; min-width: 600px; max-width: 1400px; width: 100%;">
-            <div class="speced-teacher-input-quill" style="min-height: 96px; background: #fff; border-radius: 4px; border: 1px solid #ccc; width: 100%;"></div>
-          </div>
-        </div>
-      </div>
-    `;
-    container.appendChild(block);
-    initQuillForBlock(block);
-    block.querySelector('.remove-speced-teacher-btn').onclick = function() {
-      block.remove();
-    };
-  };
-}, 0);
-
-setTimeout(() => {
-  const container = document.getElementById('provider-inputs-container');
-  const addBtn = document.getElementById('add-provider-btn');
-  function initQuillForBlock(block) {
-    const quillDiv = block.querySelector('.provider-input-quill');
-    if (quillDiv && !quillDiv._quill && window.Quill) {
-      const toolbarOptions = [
-        [{ font: [] }, { size: [] }],
-        ['bold', 'italic', 'underline', 'strike'],
-        [{ color: [] }, { background: [] }],
-        [{ list: 'ordered' }, { list: 'bullet' }, { indent: '-1' }, { indent: '+1' }],
-        ['link'],
-        ['clean']
-      ];
-      const quill = new Quill(quillDiv, {
-        modules: { toolbar: toolbarOptions },
-        theme: 'snow',
-        placeholder: 'Add provider input here...'
-      });
-      quillDiv._quill = quill;
-    }
-    // Show/hide logic for 'Other' service description
-    const serviceDropdown = block.querySelector('.provider-input-service');
-    const serviceDesc = block.querySelector('.provider-input-service-desc');
-    if (serviceDropdown) {
-      const descInline = block.querySelector('label .provider-input-service-desc');
-      const descRow = block.querySelector('.provider-service-desc-row');
-      serviceDropdown.addEventListener('change', function() {
-        const isOther = serviceDropdown.value === 'Other';
-        if (descInline) descInline.style.display = 'none';
-        if (descRow) descRow.style.display = isOther ? 'block' : 'none';
-        if (!isOther && descRow) {
-          const input = descRow.querySelector('.provider-input-service-desc');
-          if (input) input.value = '';
-        }
-      });
-    }
-  }
-  // Initialize Quill and dropdown for the first block
-  initQuillForBlock(container.querySelector('.provider-input-block'));
-  addBtn.onclick = function() {
-    const block = document.createElement('div');
-    block.className = 'provider-input-block';
-    block.innerHTML = `
-      <div style="border: 1px solid #bbb; border-radius: 8px; padding: 64px 18px 32px 18px; margin-top: 10px; background: #fafbfc; position: relative;">
-        <button type='button' class='remove-provider-btn remove-sdi-btn' style='position: absolute; top: 12px; right: 12px; min-width: 90px; padding: 4px 18px;'>-Provider</button>
-        <div style="display: flex; align-items: center; gap: 64px; margin-bottom: 12px; margin-top: 10px; flex-wrap: nowrap;">
-          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 280px;">
-            Service Provided:
-            <select class="provider-input-service" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 140px; margin-right: 24px;">
-              <option value="">Choose One</option>
-              <option value="SLP">SLP</option>
-              <option value="OT">OT</option>
-              <option value="PT">PT</option>
-              <option value="AS">AS</option>
-              <option value="ES">ES</option>
-              <option value="Other">Other</option>
-            </select>
-          </label>
-          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 180px;">
-            Title:
-            <select class="provider-input-title" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 120px; margin-right: 24px;">
-              <option value="">choose one</option>
-              <option value="Dr.">Dr.</option>
-              <option value="Mr.">Mr.</option>
-              <option value="Ms.">Ms.</option>
-            </select>
-          </label>
-          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 200px;">
-            First Name:
-            <input type="text" class="provider-input-first" placeholder="first name" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px; margin-right: 24px;">
-          </label>
-          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 200px;">
-            Last Name:
-            <input type="text" class="provider-input-last" placeholder="last name" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px; margin-right: 24px;">
-          </label>
-          <label style="font-weight: bold; display: flex; align-items: center; gap: 8px; min-width: 200px;">
-            Date of Input:
-            <input type="date" class="provider-input-date" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; min-width: 180px; margin-right: 24px;">
-          </label>
-        </div>
-        <div class="provider-service-desc-row" style="display:none; margin-top: 6px;">
-          <input type="text" class="provider-input-service-desc" placeholder="describe" style="padding: 6px 10px; border-radius: 4px; border: 1px solid #ccc; font-size: 1em; width: 240px; max-width: 240px;">
-        </div>
-        <div style="height: 24px;"></div>
-        <div style="display: flex; align-items: flex-start; gap: 16px;">
-          <label style="font-weight: bold; min-width: 140px; margin-top: 8px;">Provider Input:</label>
-          <div style="flex: 1; min-width: 600px; max-width: 1400px; width: 100%;">
-            <div class="provider-input-quill" style="min-height: 96px; background: #fff; border-radius: 4px; border: 1px solid #ccc; width: 100%;"></div>
-          </div>
-        </div>
-      </div>
-    `;
-    container.appendChild(block);
-    initQuillForBlock(block);
-    block.querySelector('.remove-provider-btn').onclick = function() {
-      block.remove();
-    };
-  };
-}, 0); 
