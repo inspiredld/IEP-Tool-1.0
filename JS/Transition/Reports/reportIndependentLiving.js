@@ -1,5 +1,32 @@
 export function generateTransitionIndependentLivingReport(returnOnly = false) {
-  const firstName = document.getElementById('firstName')?.value?.trim() || '[Name]';
+  function getTransStudentInfo() {
+    const transName = document.getElementById('transition-student-name')?.value?.trim();
+    const plaaName = document.getElementById('firstName')?.value?.trim();
+    const name = transName || plaaName || '[Name]';
+    const transPron = document.getElementById('transition-pronouns-select')?.value || '';
+    let subj = '', poss = '';
+    if (transPron === 'he-him') { subj = 'he'; poss = 'his'; }
+    else if (transPron === 'she-her') { subj = 'she'; poss = 'her'; }
+    else if (transPron === 'they-them') { subj = 'they'; poss = 'their'; }
+    else if (transPron === 'other') {
+      subj = (document.getElementById('transition-pro-subj')?.value?.trim() || 'they');
+      poss = (document.getElementById('transition-pro-poss')?.value?.trim() || 'their');
+    }
+    if (!subj || !poss) {
+      const plaaPron = document.getElementById('pronouns')?.value || '';
+      if (plaaPron === 'Custom') {
+        subj = subj || (document.getElementById('pronoun-subject')?.value?.trim() || 'they');
+        poss = poss || (document.getElementById('pronoun-possessive')?.value?.trim() || 'their');
+      } else if (plaaPron.includes('/')) {
+        const parts = plaaPron.split('/');
+        subj = subj || (parts[0] || 'they');
+        poss = poss || (parts[2] || 'their');
+      }
+    }
+    return { name, pronounSubjectLower: (subj || 'they'), pronounPossessiveLower: (poss || 'their') };
+  }
+  const student = getTransStudentInfo();
+  const firstName = student.name;
   const namePossessive = firstName ? (firstName.endsWith('s') ? `${firstName}'` : `${firstName}'s`) : "[Name]'s";
 
   // Always start with section heading
@@ -106,11 +133,11 @@ export function generateTransitionIndependentLivingReport(returnOnly = false) {
     html += '<p><br></p><p><br></p>';
     html += '<h3>Summary of Past and Present Goals</h3>';
     if (indSame) {
-      html += '<p>The results of assessments and conversations with the student this year indicate that their post-secondary goals and plans remain the same as last year.</p>';
+      html += `<p>The results of assessments and conversations with the student this year indicate that ${student.pronounPossessiveLower} post-secondary goals and plans remain the same as last year.</p>`;
     } else if (indChanged) {
       const prev = (document.getElementById('transition-ind-goal-change-prev')?.value || '').trim() || '[previous goal/plans]';
       const now = (document.getElementById('transition-ind-goal-change-new')?.value || '').trim() || '[new goal/plans]';
-      html += `<p>While ${firstName} indicated interest in ${prev} last year, assessments and conversations with the student this year indicate that they are now interested in ${now}.</p>`;
+      html += `<p>While ${firstName} indicated interest in ${prev} last year, assessments and conversations with the student this year indicate that ${student.pronounSubjectLower} are now interested in ${now}.</p>`;
     }
 
   } else if (recNo) {

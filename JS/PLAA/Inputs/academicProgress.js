@@ -11,6 +11,7 @@ export function createAcademicProgressForm(container) {
           <label for="goal${goalIndex}SchoolYear${periodIndex}">School Year:</label>
           <select id="goal${goalIndex}SchoolYear${periodIndex}" name="goal${goalIndex}SchoolYear${periodIndex}" class="progress-details-select">
             <option value="">Choose One</option>
+            <option value="2024-2025">2024-2025</option>
             <option value="2025-2026">2025-2026</option>
             <option value="2026-2027">2026-2027</option>
             <option value="2027-2028">2027-2028</option>

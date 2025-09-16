@@ -2,8 +2,40 @@
 // This file generates the output HTML for the Stakeholder Input section, including General Ed, Special Ed, and Related Service Provider inputs.
 
 export function generateStakeholderInputReport() {
-  // Get student name from PLAA section (actual input value)
-  const studentName = document.getElementById('firstName')?.value?.trim() || '[Name]';
+  // Helper: get student info with precedence (PLFP → PLAA → placeholders)
+  function getPlfpStudentInfo() {
+    const namePlfp = document.getElementById('plfp-student-name')?.value?.trim();
+    const proSel = document.getElementById('plfp-pronouns-select')?.value || '';
+    let subjPlfp = '', objPlfp = '', possPlfp = '';
+    if (proSel === 'he-him') { subjPlfp = 'he'; objPlfp = 'him'; possPlfp = 'his'; }
+    else if (proSel === 'she-her') { subjPlfp = 'she'; objPlfp = 'her'; possPlfp = 'her'; }
+    else if (proSel === 'they-them') { subjPlfp = 'they'; objPlfp = 'them'; possPlfp = 'their'; }
+    else if (proSel === 'other') {
+      subjPlfp = document.getElementById('plfp-pro-subj')?.value?.trim() || '';
+      objPlfp = document.getElementById('plfp-pro-obj')?.value?.trim() || '';
+      possPlfp = document.getElementById('plfp-pro-poss')?.value?.trim() || '';
+    }
+    const namePlaa = document.getElementById('firstName')?.value?.trim();
+    const pronPlaa = document.getElementById('pronouns')?.value || '';
+    let subjPlaa = '', objPlaa = '', possPlaa = '';
+    if (pronPlaa === 'Custom') {
+      subjPlaa = document.getElementById('pronoun-subject')?.value?.trim() || '';
+      objPlaa = document.getElementById('pronoun-object')?.value?.trim() || '';
+      possPlaa = document.getElementById('pronoun-possessive')?.value?.trim() || '';
+    } else if (pronPlaa) {
+      const parts = pronPlaa.split('/');
+      subjPlaa = parts[0] || '';
+      objPlaa = parts[1] || '';
+      possPlaa = parts[2] || '';
+    }
+    const name = namePlfp || namePlaa || '[Name]';
+    const subj = (subjPlfp || subjPlaa || 'They');
+    const obj = (objPlfp || objPlaa || 'them');
+    const poss = (possPlfp || possPlaa || '[pronoun]');
+    return { name, pronounSubject: subj, pronounObject: obj, pronounPossessive: poss };
+  }
+  const student = getPlfpStudentInfo();
+  const studentName = student.name;
   // Checkbox selectors
   const studentChecked = document.querySelector('.stakeholder-toggle[data-target="studentInputContent"]')?.checked;
   const nurseChecked = document.querySelector('.stakeholder-toggle[data-target="nurseInputContent"]')?.checked;
@@ -254,10 +286,7 @@ export function generateStakeholderInputReport() {
     const spedClasses = document.querySelector('.case-manager-sped-classes')?.value?.trim() || '[list supports]';
 
     // Subject pronoun from PLAA pronouns select
-    const pronouns = document.getElementById('pronouns')?.value || '';
-    const pronounSubject = pronouns === 'Custom'
-      ? (document.getElementById('pronoun-subject')?.value?.trim() || 'They')
-      : (pronouns.split('/')[0] || 'They');
+    const pronounSubject = student.pronounSubject;
 
     output += `<p>${studentName} receives ${supportLevel} ${supportType} and attends the following General Education classes: ${genEdClasses}. ${pronounSubject} receives Special Education services/supports through ${spedClasses}.</p>`;
 
@@ -276,9 +305,7 @@ export function generateStakeholderInputReport() {
     const needs = document.querySelector('.case-manager-needs')?.value?.trim() || '[needs]';
 
     // Possessive pronoun from PLAA pronouns select
-    const pronounPossessive = pronouns === 'Custom'
-      ? (document.getElementById('pronoun-possessive')?.value?.trim() || 'Their')
-      : (pronouns.split('/')?.[2] || 'Their');
+    const pronounPossessive = student.pronounPossessive || 'Their';
 
     output += `<p>${studentName}'s strengths were assessed through input from teachers, caregivers, and discussions with ${studentName}. Based on the information gathered from these sources, ${studentName} demonstrates strengths in areas such as: ${strengths}. ${pronounPossessive} needs include: ${needs}.</p>`;
 

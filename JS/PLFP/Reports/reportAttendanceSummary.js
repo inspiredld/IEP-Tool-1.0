@@ -2,6 +2,41 @@
 // Placeholder - match PLAA Reports style
 
 export function generateAttendanceSummaryReport(data) {
+  // Helper: fetch student name and pronouns with precedence: PLFP bar → PLAA → placeholders
+  function getPlfpStudentInfo() {
+    const namePlfp = document.getElementById('plfp-student-name')?.value?.trim();
+    const proSel = document.getElementById('plfp-pronouns-select')?.value || '';
+    let subjPlfp = '', objPlfp = '', possPlfp = '';
+    if (proSel === 'he-him') { subjPlfp = 'he'; objPlfp = 'him'; possPlfp = 'his'; }
+    else if (proSel === 'she-her') { subjPlfp = 'she'; objPlfp = 'her'; possPlfp = 'her'; }
+    else if (proSel === 'they-them') { subjPlfp = 'they'; objPlfp = 'them'; possPlfp = 'their'; }
+    else if (proSel === 'other') {
+      subjPlfp = document.getElementById('plfp-pro-subj')?.value?.trim() || '';
+      objPlfp = document.getElementById('plfp-pro-obj')?.value?.trim() || '';
+      possPlfp = document.getElementById('plfp-pro-poss')?.value?.trim() || '';
+    }
+    // If PLFP not provided, fall back to PLAA
+    const namePlaa = document.getElementById('firstName')?.value?.trim();
+    const pronPlaa = document.getElementById('pronouns')?.value || '';
+    let subjPlaa = '', objPlaa = '', possPlaa = '';
+    if (pronPlaa === 'Custom') {
+      subjPlaa = document.getElementById('pronoun-subject')?.value?.trim() || '';
+      objPlaa = document.getElementById('pronoun-object')?.value?.trim() || '';
+      possPlaa = document.getElementById('pronoun-possessive')?.value?.trim() || '';
+    } else if (pronPlaa) {
+      const parts = pronPlaa.split('/');
+      subjPlaa = parts[0] || '';
+      objPlaa = parts[1] || '';
+      possPlaa = parts[2] || '';
+    }
+    const name = namePlfp || namePlaa || '[Name]';
+    const subj = (subjPlfp || subjPlaa || 'They');
+    const obj = (objPlfp || objPlaa || 'them');
+    const poss = (possPlfp || possPlaa || '[pronoun]');
+    return { name, pronounSubject: subj, pronounObject: obj, pronounPossessive: poss };
+  }
+
+  const student = getPlfpStudentInfo();
   // Get date reviewed
   const dateRaw = document.getElementById('attendance-date-reviewed')?.value;
   let formattedDate = '[DATE]';
@@ -14,13 +49,9 @@ export function generateAttendanceSummaryReport(data) {
       formattedDate = dateRaw;
     }
   }
-  // Get student name and pronoun from PLAA section
-  const firstName = document.getElementById('firstName')?.value?.trim() || '[Name]';
-  const pronouns = document.getElementById('pronouns')?.value || '';
-  const pronounPossessive =
-    pronouns === 'Custom'
-      ? document.getElementById('pronoun-possessive')?.value?.trim() || '[pronoun]'
-      : pronouns.split('/')[2] || '[pronoun]';
+  // Student name/pronouns with precedence
+  const firstName = student.name;
+  const pronounPossessive = student.pronounPossessive;
 
   // Build the Attendance Summary Output
   const attendanceSummary = `As of ${formattedDate}, a review of ${firstName}’s attendance history included the following information about ${pronounPossessive} absences, tardies, and early dismissals:`;

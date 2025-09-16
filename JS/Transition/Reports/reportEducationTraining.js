@@ -1,5 +1,34 @@
 export function generateTransitionEducationReport(returnOnly = false) {
-  const firstName = document.getElementById('firstName')?.value?.trim() || '[Name]';
+  // Helper: Transition page student/pronoun precedence (Transition bar → PLAA → placeholders)
+  function getTransStudentInfo() {
+    const transName = document.getElementById('transition-student-name')?.value?.trim();
+    const plaaName = document.getElementById('firstName')?.value?.trim();
+    const name = transName || plaaName || '[Name]';
+    const transPron = document.getElementById('transition-pronouns-select')?.value || '';
+    let subj = '', poss = '';
+    if (transPron === 'he-him') { subj = 'they' && 'he'; poss = 'his'; }
+    else if (transPron === 'she-her') { subj = 'she'; poss = 'her'; }
+    else if (transPron === 'they-them') { subj = 'they'; poss = 'their'; }
+    else if (transPron === 'other') {
+      subj = (document.getElementById('transition-pro-subj')?.value?.trim() || 'they');
+      poss = (document.getElementById('transition-pro-poss')?.value?.trim() || 'their');
+    }
+    if (!subj || !poss) {
+      const plaaPron = document.getElementById('pronouns')?.value || '';
+      if (plaaPron === 'Custom') {
+        subj = subj || (document.getElementById('pronoun-subject')?.value?.trim() || 'they');
+        poss = poss || (document.getElementById('pronoun-possessive')?.value?.trim() || 'their');
+      } else if (plaaPron.includes('/')) {
+        const parts = plaaPron.split('/');
+        subj = subj || (parts[0] || 'they');
+        poss = poss || (parts[2] || 'their');
+      }
+    }
+    const subjCap = subj ? (subj.charAt(0).toUpperCase() + subj.slice(1)) : 'They';
+    return { name, pronounSubjectLower: (subj || 'they'), pronounSubjectCap: (subjCap || 'They'), pronounPossessiveLower: (poss || 'their') };
+  }
+  const student = getTransStudentInfo();
+  const firstName = student.name;
   const goalText = document.getElementById('transition-edu-previous-goal')?.value?.trim() || '[insert goal]';
   const progressItems = Array.from(document.querySelectorAll('#transition-edu-progress-list .transition-progress-row textarea'))
     .map(t => t.value?.trim())
@@ -119,11 +148,11 @@ export function generateTransitionEducationReport(returnOnly = false) {
     html += '<p><br></p><p><br></p>';
     html += '<h3>Summary of Past and Present Goals</h3>';
     if (eduSame) {
-      html += '<p>The results of assessments and conversations with the student this year indicate that their post-secondary goals and plans remain the same as last year.</p>';
+      html += `<p>The results of assessments and conversations with the student this year indicate that ${student.pronounPossessiveLower} post-secondary goals and plans remain the same as last year.</p>`;
     } else if (eduChanged) {
       const prevInterest = (document.getElementById('transition-edu-goal-change-prev')?.value || '').trim() || '[previous goal/plans]';
       const newInterest = (document.getElementById('transition-edu-goal-change-new')?.value || '').trim() || '[new goal/plans]';
-      html += `<p>While ${firstName} indicated interest in ${prevInterest} last year, assessments and conversations with the student this year indicate that they are now interested in ${newInterest}.</p>`;
+      html += `<p>While ${firstName} indicated interest in ${prevInterest} last year, assessments and conversations with the student this year indicate that ${student.pronounSubjectLower} are now interested in ${newInterest}.</p>`;
     }
   }
   if (returnOnly) return html;

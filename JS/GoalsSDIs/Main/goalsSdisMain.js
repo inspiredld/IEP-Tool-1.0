@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <option value="reading-comprehension">Reading Comprehension</option>
           <option value="reading-fluency">Reading Fluency</option>
           <option value="writing">Writing</option>
-          <option value="math">Math</option>
+          <option value="math-computation">Math Computation</option>
+          <option value="math-calculation">Math Calculation</option>
+          <option value="math-general">Math (General)</option>
           <option value="executive-functioning">Executive Functioning</option>
           <option value="social-skills">Social Skills</option>
           <option value="behavior">Behavior</option>
@@ -75,34 +77,48 @@ document.addEventListener('DOMContentLoaded', () => {
             <label>1. Condition</label>
           </div>
           <div class="rcg-condition">
-            <div class="rcg-condition-row">
+            <div class="rcg-condition-row" style="display:flex; flex-direction:column; gap:8px; margin-left: 0 !important; padding-left: 0; width: 100%; align-items: flex-start;">
+              <div style="display:flex; align-items:center; gap:10px; margin-left: 0 !important;">
               <label class="rcg-prompt">Given...</label>
-              <select class="rcg-condition-type">
-                ${mode === 'reading-fluency' ? `
-                  <option value="">select one</option>
-                  <option value="grade-level">a grade-level passage</option>
-                  <option value="instructional-level">a passage at instructional level</option>
-                  <option value="words-count">a passage of ___ words</option>
-                  <option value="content-area">a passage from content-area text</option>
-                  <option value="controlled-decodable">a passage with controlled/decodable text</option>
-                  <option value="repeated-reading">a repeated reading of a passage</option>
-                  <option value="teacher-modeled">a teacher-modeled reading</option>
-                  <option value="other">Other</option>
-                ` : `
-                <option value="">select one</option>
-                <option value="grade-level">a grade-level passage</option>
-                <option value="instructional-level">a passage at instructional level</option>
-                <option value="read-aloud">a teacher read-aloud</option>
-                <option value="text-visual-supports">a text with visual supports</option>
-                <option value="graphic-organizer">a graphic organizer</option>
-                <option value="comprehension-questions">comprehension questions</option>
-                <option value="annotation-tool">a highlighter or annotation tool</option>
-                <option value="small-group">during small-group instruction</option>
-                <option value="text-to-speech">using text-to-speech software</option>
-                <option value="story-map">using a story map</option>
-                <option value="other">Other</option>
-                `}
+                <span class="rcg-italic">Select all that apply:</span>
+              </div>
+              <div class="wc-cond-list" style="display:grid !important; grid-template-columns: 1fr 1fr !important; grid-auto-flow: row dense; gap: 10px 24px; margin-left: 14px; margin-top: 6px; max-width: 860px;">
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="writing-prompt" /> <span>a writing prompt</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="graphic-organizer" /> <span>a graphic organizer</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="sentence-starters" /> <span>sentence starters/frames</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; grid-column: 1 / 2 !important;"><input type="checkbox" class="wc-cond" value="teacher-model" /> <span>a teacher-modeled example</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="peer-feedback" /> <span>peer feedback</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="word-processor" /> <span>a word processor</span></label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="rubric" /> <span>a rubric</span></label>
+                <label class="wc-cond-grade-row" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; grid-column:1 / -1; flex-wrap: nowrap;">
+                  <input type="checkbox" class="wc-cond wc-cond-grade" value="grade-level-prompt" />
+                  <span>a </span>
+                  <select class="wc-grade-select" style="min-width: 120px; display:none; margin-left: 2px;">
+                    <option value="">select grade</option>
+                    <option value="K">K</option>
+                    <option value="1st">1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="5th">5th</option>
+                    <option value="6th">6th</option>
+                    <option value="7th">7th</option>
+                    <option value="8th">8th</option>
+                    <option value="9th">9th</option>
+                    <option value="10th">10th</option>
+                    <option value="11th">11th</option>
+                    <option value="12th">12th</option>
               </select>
+                  <span> grade level writing prompt</span>
+                </label>
+                <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; grid-column:1 / -1;">
+                  <input type="checkbox" class="wc-cond wc-cond-other" value="other" />
+                  <span>Other</span>
+                  <span class="wc-cond-other-box" style="display:none; align-items:center; gap:8px; margin-left: 10px; flex-wrap:wrap;">
+                    <input type="text" class="wc-cond-other-input" placeholder="describe" style="width: 360px; min-width: 180px; max-width: 820px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                  </span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
@@ -145,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                   <div class="rcg-behavior-scope">
                     <label>Select all that apply:</label>
                     <div class="rcg-scope-list" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px 16px; margin-top: 4px; margin-left: 14px;">
+                      <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="comprehension-questions"/> <span>comprehension questions</span></label>
                       <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="literal-questions"/> <span>literal questions</span></label>
                       <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="inferential-questions"/> <span>inferential questions</span></label>
                       <label class="rcg-scope-item" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; white-space:nowrap;"><input type="checkbox" value="main-idea-details"/> <span>main idea & details</span></label>
@@ -331,12 +348,12 @@ document.addEventListener('DOMContentLoaded', () => {
             <label>1. Condition</label>
           </div>
           <div class="rcg-condition">
-            <div class="rcg-condition-row" style="display:flex; flex-direction:column; gap:8px; margin-left: 0; width: 100%; align-items: flex-start;">
-              <div style="display:flex; align-items:center; gap:10px; margin-left: 0;">
+            <div class="rcg-condition-row" style="display:flex; flex-direction:column; gap:8px; margin-left: 0 !important; padding-left: 0; width: 100%; align-items: flex-start;">
+              <div style="display:flex; align-items:center; gap:10px; margin-left: 0 !important;">
                 <label class="rcg-prompt">Given...</label>
                 <span class="rcg-italic">Select all that apply:</span>
               </div>
-              <div class="wc-cond-list" style="display:grid; grid-template-columns: 1fr 1fr; gap: 8px 24px; margin-left: 12px; max-width: 860px;">
+              <div class="wc-cond-list" style="display:grid; grid-template-columns: 1fr 1fr; grid-auto-flow: row dense; gap: 10px 24px; margin-left: 14px; margin-top: 6px; max-width: 860px;">
                 <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="writing-prompt" /> <span>a writing prompt</span></label>
                 <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="graphic-organizer" /> <span>a graphic organizer</span></label>
                 <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="sentence-starters" /> <span>sentence starters/frames</span></label>
@@ -567,6 +584,8 @@ document.addEventListener('DOMContentLoaded', () => {
         renderReadingComprehension(content, sel.value);
       } else if (sel.value === 'writing') {
         renderWriting(content);
+      } else if (sel.value === 'math-computation' || sel.value === 'math-calculation' || sel.value === 'math-general') {
+        renderMath(content, sel.value);
       } else if (content) {
         content.innerHTML = '';
       }
@@ -592,6 +611,8 @@ document.addEventListener('DOMContentLoaded', () => {
         renderReadingComprehension(content, sel.value);
       } else if (sel.value === 'writing') {
         renderWriting(content);
+      } else if (sel.value === 'math-computation' || sel.value === 'math-calculation' || sel.value === 'math-general') {
+        renderMath(content, sel.value);
       } else {
         content.innerHTML = '';
       }
@@ -739,6 +760,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = root.querySelector('.pc-rubric-name')?.value?.trim();
         const amount = `${left || '_'} / ${right || '_'}`;
         const categorySpecific = name ? `on the ${name}` : 'on the rubric';
+        // If Writing goal type (wc-components present), use custom phrasing
+        const isWriting = !!root.querySelector('.wc-components');
+        if (isWriting) {
+          const rubricName = name ? name : 'rubric';
+          return { amount: '', categorySpecific: '', customWith: `achieving a score of at least ${amount} on the ${rubricName}` };
+        }
         return { amount, categorySpecific };
       }
       if (category === 'other') {
@@ -812,8 +839,17 @@ document.addEventListener('DOMContentLoaded', () => {
           const val = input.value;
           if (val === 'grade-level-prompt') {
             const grade = root.querySelector('.wc-grade-select')?.value?.trim();
-            if (grade) items.push(`a ${grade}-grade level writing prompt`);
-            else items.push('a grade level writing prompt');
+            if (grade) {
+              const needsAn = (g) => {
+                if (!g) return false;
+                const s = String(g).toLowerCase();
+                return s.startsWith('8') || s.startsWith('11');
+              };
+              const article = needsAn(grade) ? 'an' : 'a';
+              items.push(`${article} ${grade}-grade level writing prompt`);
+            } else {
+              items.push('a grade level writing prompt');
+            }
             return;
           }
           if (val === 'other') {
@@ -1271,7 +1307,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const gradeSel = root.querySelector('.wc-grade-select');
       if (gradeChk && gradeSel && !gradeChk._wired) {
         gradeChk._wired = true;
-        const toggle = () => { gradeSel.style.display = gradeChk.checked ? 'inline-block' : 'none'; };
+        const leadSpan = root.querySelector('.wc-cond-grade-row > span:first-of-type');
+        const toggle = () => {
+          gradeSel.style.display = gradeChk.checked ? 'inline-block' : 'none';
+          if (leadSpan) leadSpan.textContent = gradeChk.checked ? 'a(n) ' : 'a ';
+        };
         gradeChk.addEventListener('change', toggle);
         toggle();
       }
@@ -1544,6 +1584,214 @@ document.addEventListener('DOMContentLoaded', () => {
         unitsSlot.appendChild(wrap);
       }
     } catch (_) {}
+  }
+
+  function renderMath(typeContent, mode) {
+    const editorId = `gs-goal-text-${++gsEditorCounter}`;
+    typeContent.innerHTML = `
+      <div class="goal-quad-grid" style="margin-top: 28px; grid-template-columns: 1.35fr 0.65fr;">
+        <div class="cell">
+          <div class="cell-top">
+            <label>1. Condition</label>
+          </div>
+          <div class="rcg-condition">
+            <div class="mc-cond-grid" style="display:grid; grid-template-columns: 1fr 0.9fr; gap: 8px 24px; align-items:start;">
+              <div class="mc-cond-left" style="display:flex; flex-direction:column; gap:8px;">
+                <div style="display:flex; align-items:center; justify-content:flex-start; gap:10px; margin-left: 0 !important; padding-left: 8px; width: 100%; margin-top: 0;">
+                  <label class="rcg-prompt">Given...</label>
+                  <span class="rcg-italic">Select all that apply:</span>
+                </div>
+                <div class="wc-cond-list" style="display:grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px 24px; margin-left: 0; margin-top: 0; max-width: 860px;">
+                  <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; grid-column: 1 / 2 !important;"><input type="checkbox" class="wc-cond" value="teacher-model" /> <span>a teacher-modeled example</span></label>
+                  <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="manipulatives" /> <span>manipulatives</span></label>
+                  <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="graphic-organizer" /> <span>a graphic organizer</span></label>
+                  <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="worked-examples" /> <span>worked examples</span></label>
+                  <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="calculator" /> <span>a calculator</span></label>
+                  <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="wc-cond" value="math-probe" /> <span>a classroom-based math probe</span></label>
+                  <label class="wc-cond-grade-row" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; grid-column:1 / -1; flex-wrap: nowrap;">
+                    <input type="checkbox" class="wc-cond wc-cond-grade" value="grade-level-math-probe" />
+                    <span>a </span>
+                    <select class="wc-grade-select" style="min-width: 120px; display:none; margin-left: 2px;">
+                      <option value="">select grade</option>
+                      <option value="K">K</option>
+                      <option value="1st">1st</option>
+                      <option value="2nd">2nd</option>
+                      <option value="3rd">3rd</option>
+                      <option value="4th">4th</option>
+                      <option value="5th">5th</option>
+                      <option value="6th">6th</option>
+                      <option value="7th">7th</option>
+                      <option value="8th">8th</option>
+                      <option value="9th">9th</option>
+                      <option value="10th">10th</option>
+                      <option value="11th">11th</option>
+                      <option value="12th">12th</option>
+                    </select>
+                    <span> grade level math probe</span>
+                  </label>
+                  <label class="wc-cond-other-row" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400; grid-column:1 / -1;">
+                    <input type="checkbox" class="wc-cond wc-cond-other" value="other" />
+                    <span>Other</span>
+                    <span class="wc-cond-other-box" style="display:none; align-items:center; gap:8px; margin-left: 10px; flex-wrap:wrap;">
+                      <input type="text" class="wc-cond-other-input" placeholder="describe" style="width: 360px; min-width: 180px; max-width: 820px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                    </span>
+                  </label>
+                </div>
+              </div>
+              <div class="mc-cond-right" style="display:flex; flex-direction:column; gap:8px;">
+                <label class="rcg-prompt" style="margin-top: 0;">Optional: including...</label>
+                <div class="mc-components-list" style="display:flex; flex-direction:column; gap:8px; margin-top: 6px;">
+                  <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="mc-comp" value="single-step" /> <span>single-step problems</span></label>
+                  <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="mc-comp" value="multi-step" /> <span>multi-step problems</span></label>
+                  <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="mc-comp" value="word-problems" /> <span>word problems</span></label>
+                  <label style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;"><input type="checkbox" class="mc-comp" value="fractions-decimals" /> <span>fractions and decimals</span></label>
+                  <label class="mc-comp-other-row" style="display:flex; align-items:center; gap:8px; font-style:italic; font-weight:400;">
+                    <input type="checkbox" class="mc-comp mc-components-other" value="other"/>
+                    <span>Other</span>
+                    <span class="mc-components-other-box" style="display:none; align-items:center; gap:8px; margin-left: 10px; flex-wrap:wrap;">
+                      <input type="text" class="mc-components-other-input" placeholder="describe" style="width: 360px; min-width: 180px; max-width: 820px; padding: 6px 10px; border: 1px solid #ccc; border-radius: 4px;" />
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="cell-top">
+            <label>2. Behavior</label>
+          </div>
+          <div class="rcg-behavior">
+            <div class="rcg-behavior-row">
+              <label>[Student] will...</label>
+              <select class="rcg-behavior-type">
+                <option value="">select one</option>
+                <option value="solve">solve</option>
+                <option value="compute">compute</option>
+                <option value="calculate">calculate</option>
+                <option value="add">add</option>
+                <option value="identify">identify</option>
+                <option value="achieve">achieve</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="cell span-2">
+          <label>3. Performance Criteria (with...)</label>
+          <div class="rcg-performance">
+            <div class="rcg-performance-grid">
+              <div class="pc-col">
+                <div class="pc-row"><label>Category</label>
+                  <select class="rcg-performance-category" style="max-width: 260px;">
+                    <option value="">select one</option>
+                    <option value="accuracy">Accuracy (%)</option>
+                    <option value="percentile">Percentile</option>
+                    <option value="num-correct"># Correct</option>
+                    <option value="num-errors"># of Errors Allowed</option>
+                    <option value="rubric">Rubric/Rating Scale</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="pc-col">
+                <div class="pc-row"><label>Mastery Level</label></div>
+                <div class="rcg-performance-mastery">
+                  <div class="rcg-mastery-grid" style="text-align:center;">
+                    <div class="ml-col">
+                      <div class="ml-top">
+                        <label class="rcg-prompt">Preposition</label>
+                        <select class="ml-preposition-select" style="min-width: 180px; text-align: left;">
+                          <option value="">Select One</option>
+                          <option value="in">in</option>
+                          <option value="across">across</option>
+                          <option value="over">over</option>
+                          <option value="during">during</option>
+                <option value="other">other</option>
+              </select>
+            </div>
+                      <div class="ml-slot"></div>
+                    </div>
+                    <div class="ml-col">
+                      <div class="ml-top">
+                        <label class="rcg-prompt"># or Ratio</label>
+                        <select class="ml-count-select" style="width: 80px; min-width: 80px;">
+                          <option value="">Select One</option>
+                          <option value="count">#</option>
+                          <option value="ratio">ratio</option>
+                        </select>
+                      </div>
+                      <div class="ml-slot"></div>
+                    </div>
+                    <div class="ml-col">
+                      <div class="ml-top">
+                        <label class="rcg-prompt">Frequency</label>
+                        <select class="ml-frequency-select" style="min-width: 140px;">
+                          <option value="">Select One</option>
+                          <option value="daily">Daily</option>
+                          <option value="weekly">Weekly</option>
+                          <option value="monthly">Monthly</option>
+                          <option value="two-per-month">2x/month</option>
+                          <option value="other">Other</option>
+                        </select>
+                      </div>
+                      <div class="ml-slot"></div>
+                    </div>
+                    <div class="ml-col">
+                      <div class="ml-top">
+                        <label class="rcg-prompt">Units</label>
+                        <select class="ml-units-select" style="min-width: 160px;">
+                          <option value="">Select One</option>
+                          <option value="trials">trials</option>
+                          <option value="opportunities">opportunities</option>
+                          <option value="attempts">attempts</option>
+                          <option value="sessions">sessions</option>
+                          <option value="probes">probes</option>
+                          <option value="tasks">tasks</option>
+                          <option value="assessments">assessments</option>
+                          <option value="observations">observations</option>
+                          <option value="measures">measures</option>
+                          <option value="measurements">measurements</option>
+                          <option value="other">other</option>
+                        </select>
+                      </div>
+                      <div class="ml-slot"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cell">
+          <div class="gs-goal-text gs-inline">
+            <label class="goal-subheading gs-goal-text-title">Measurable Annual Goal</label>
+            <div class="rte-box-outer gs-rte-inline"><textarea id="${editorId}" class="gs-goal-textarea"></textarea></div>
+            <div class="gs-generate-row"><button type="button" class="generate-report-btn gs-generate-goal-btn">Generate Goal</button></div>
+          </div>
+        </div>
+      </div>`;
+
+    wireConditionControls(typeContent);
+    wireBehaviorControls(typeContent);
+    wirePerformanceControls(typeContent);
+    wireMasteryPreposition(typeContent);
+    wireCountRatioControls(typeContent);
+    wireFrequencyControls(typeContent);
+    wireUnitsControls(typeContent);
+    ensureMasteryOtherRows(typeContent);
+    wireMagComposer(typeContent);
+    // Math 'including' other toggle
+    (function(){
+      const other = typeContent.querySelector('.mc-components .mc-components-other');
+      const box = typeContent.querySelector('.mc-components-other-box');
+      if (other && box && !other._wired) {
+        other._wired = true;
+        const t = () => { box.style.display = other.checked ? 'inline-flex' : 'none'; };
+        other.addEventListener('change', t);
+        t();
+      }
+    })();
   }
 });
 

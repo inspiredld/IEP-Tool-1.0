@@ -28,13 +28,27 @@ export function generateFunctionalSkillsAssessmentReport() {
 
   const br = (n = 1) => Array.from({ length: n }).map(() => '<div><br></div>').join('');
 
-  // Student name and pronoun (from PLAA)
-  const studentName = document.getElementById('firstName')?.value?.trim() || '[Name]';
-  const pronouns = document.getElementById('pronouns')?.value || '';
-  const pronounPossessive =
-    pronouns === 'Custom'
-      ? (document.getElementById('pronoun-possessive')?.value?.trim() || '[pronoun]')
-      : (pronouns.split('/')?.[2] || '[pronoun]');
+  // Student name and pronouns with precedence: PLFP bar → PLAA → placeholders
+  function getPlfpStudentInfo() {
+    const namePlfp = document.getElementById('plfp-student-name')?.value?.trim();
+    const proSel = document.getElementById('plfp-pronouns-select')?.value || '';
+    let possPlfp = '';
+    if (proSel === 'he-him') possPlfp = 'his';
+    else if (proSel === 'she-her') possPlfp = 'her';
+    else if (proSel === 'they-them') possPlfp = 'their';
+    else if (proSel === 'other') possPlfp = document.getElementById('plfp-pro-poss')?.value?.trim() || '';
+    const namePlaa = document.getElementById('firstName')?.value?.trim();
+    const pronPlaa = document.getElementById('pronouns')?.value || '';
+    let possPlaa = '';
+    if (pronPlaa === 'Custom') possPlaa = document.getElementById('pronoun-possessive')?.value?.trim() || '';
+    else if (pronPlaa) possPlaa = pronPlaa.split('/')?.[2] || '';
+    const name = namePlfp || namePlaa || '[Name]';
+    const poss = possPlfp || possPlaa || '[pronoun]';
+    return { name, pronounPossessive: poss };
+  }
+  const student = getPlfpStudentInfo();
+  const studentName = student.name;
+  const pronounPossessive = student.pronounPossessive;
 
   // Date helpers
   const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];

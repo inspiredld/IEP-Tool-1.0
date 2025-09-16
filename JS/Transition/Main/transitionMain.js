@@ -169,13 +169,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const firstName = document.getElementById('transition-student-name')?.value?.trim()
         || document.getElementById('firstName')?.value?.trim()
         || '[Name]';
-      const pronouns = document.getElementById('transition-pronouns-select')?.value
-        || document.getElementById('pronouns')?.value
-        || '';
-      const pronounPossessive =
-        pronouns === 'Custom'
-          ? (document.getElementById('transition-pro-poss')?.value?.trim() || document.getElementById('pronoun-possessive')?.value?.trim() || '[pronoun]')
-          : (pronouns.split('/')?.[2] || '[pronoun]');
+      // Pronouns precedence: Transition bar → PLAA → placeholder
+      const transPron = document.getElementById('transition-pronouns-select')?.value || '';
+      let pronounPossessive = '';
+      if (transPron === 'he-him') pronounPossessive = 'his';
+      else if (transPron === 'she-her') pronounPossessive = 'her';
+      else if (transPron === 'they-them') pronounPossessive = 'their';
+      else if (transPron === 'other') pronounPossessive = (document.getElementById('transition-pro-poss')?.value?.trim() || 'their');
+      if (!pronounPossessive) {
+        const plaaPron = document.getElementById('pronouns')?.value || '';
+        if (plaaPron === 'Custom') pronounPossessive = (document.getElementById('pronoun-possessive')?.value?.trim() || 'their');
+        else if (plaaPron.includes('/')) pronounPossessive = (plaaPron.split('/')?.[2] || 'their');
+      }
+      if (!pronounPossessive) pronounPossessive = '[pronoun]';
 
       const intro = '<h1>Transition Goals and Activities</h1>' +
         `<p>During previous IEP meetings, the IEP team identified goals and activities related to ${firstName}'s post-secondary education & training, employment, and independent living needs. ${firstName}'s progress towards these goals and information from ${pronounPossessive} most recent transition assessment are described below.</p>` +
@@ -210,13 +216,18 @@ document.addEventListener('DOMContentLoaded', () => {
       const firstName = document.getElementById('transition-student-name')?.value?.trim()
         || document.getElementById('firstName')?.value?.trim()
         || '[Name]';
-      const pronouns = document.getElementById('transition-pronouns-select')?.value
-        || document.getElementById('pronouns')?.value
-        || '';
-      const pronounPossessive =
-        pronouns === 'Custom'
-          ? (document.getElementById('transition-pro-poss')?.value?.trim() || document.getElementById('pronoun-possessive')?.value?.trim() || '[pronoun]')
-          : (pronouns.split('/')?.[2] || '[pronoun]');
+      const transPron = document.getElementById('transition-pronouns-select')?.value || '';
+      let pronounPossessive = '';
+      if (transPron === 'he-him') pronounPossessive = 'his';
+      else if (transPron === 'she-her') pronounPossessive = 'her';
+      else if (transPron === 'they-them') pronounPossessive = 'their';
+      else if (transPron === 'other') pronounPossessive = (document.getElementById('transition-pro-poss')?.value?.trim() || 'their');
+      if (!pronounPossessive) {
+        const plaaPron = document.getElementById('pronouns')?.value || '';
+        if (plaaPron === 'Custom') pronounPossessive = (document.getElementById('pronoun-possessive')?.value?.trim() || 'their');
+        else if (plaaPron.includes('/')) pronounPossessive = (plaaPron.split('/')?.[2] || 'their');
+      }
+      if (!pronounPossessive) pronounPossessive = '[pronoun]';
       const intro = '<h1>Transition Goals and Activities</h1>' +
         `<p>During previous IEP meetings, the IEP team identified goals and activities related to ${firstName}'s post-secondary education & training, employment, and independent living needs. ${firstName}'s progress towards these goals and information from ${pronounPossessive} most recent transition assessment are described below.</p>` +
         '<p><br></p><p><br></p>';
